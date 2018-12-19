@@ -7,20 +7,27 @@
 //
 
 import UIKit
+import CoreData
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
-        createNameDictionary()
+        fetchCoreData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     let indexLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
-    let namesArray = ["apple", "aston martin", "bread", "cow", "donkey", "elephant", "ffat", "great", "hat", "igloo", "joke", "kangaroo", "lampstand", "quarts", "rude", "tuv", "walrus", "taco", "zebra"]
+    var namesArray = [String]()
+    
+    var personArray: [Person] = []
     
     var contactNamesDictionary = [String: [String]]()
     var indexLettersInContactsArray = [String]()
@@ -35,7 +42,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if var separateNamesArray = contactNamesDictionary[uppercasedLetter] { //check if key already exists
                 separateNamesArray.append(name)
                 contactNamesDictionary[uppercasedLetter] = separateNamesArray
-                print(separateNamesArray)
             } else {
                 contactNamesDictionary[uppercasedLetter] = [name]
             }
@@ -48,7 +54,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func createContactBtnPressed(_ sender: Any) {
+        guard let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileVC") else { return } //to create identifier to move between views
+        guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
+        self.definesPresentationContext = true
+        profileVC.modalPresentationStyle = .overCurrentContext
+        root.present(profileVC, animated: true, completion: nil)
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return contactNamesDictionary.keys.count
     }
@@ -60,6 +72,44 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return names.count
         }
         return 0
+    }
+
+    func fetchCoreData() {
+        fetchContacts { (complete) in
+            
+            if complete {
+                print("got data")
+                
+                for i in personArray {
+                    let fullName = "\(i.firstName!) \(i.lastName!)"
+                    
+                    namesArray.append(fullName)
+                }
+                print(namesArray)
+                createNameDictionary()
+            } else {
+                print("error fetched core data")
+            }
+            
+        }
+    }
+    
+    func fetchContacts(completion: (_ complete: Bool) -> ()) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
+        
+        do {
+            personArray = try managedContext.fetch(fetchRequest)
+            
+            print("fetched data")
+            completion(true)
+        } catch {
+            print("error fetching data")
+            completion(false)
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
