@@ -13,6 +13,7 @@
 		FEA6A3E521C9A1F6006410C7 /* Contacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3E321C9A1F6006410C7 /* Contacts.xcdatamodeld */; };
 		FEA6A3E721C9A1F9006410C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEA6A3E621C9A1F9006410C7 /* Assets.xcassets */; };
 		FEA6A3EA21C9A1F9006410C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA6A3E821C9A1F9006410C7 /* LaunchScreen.storyboard */; };
+		FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		FEA6A3E621C9A1F9006410C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEA6A3E921C9A1F9006410C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEA6A3EB21C9A1F9006410C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				FEA6A3DC21C9A1F6006410C7 /* AppDelegate.swift */,
 				FEA6A3DE21C9A1F6006410C7 /* ViewController.swift */,
+				FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */,
 				FEA6A3E021C9A1F6006410C7 /* Main.storyboard */,
 				FEA6A3E621C9A1F9006410C7 /* Assets.xcassets */,
 				FEA6A3E821C9A1F9006410C7 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */,
 				FEA6A3DF21C9A1F6006410C7 /* ViewController.swift in Sources */,
 				FEA6A3DD21C9A1F6006410C7 /* AppDelegate.swift in Sources */,
 				FEA6A3E521C9A1F6006410C7 /* Contacts.xcdatamodeld in Sources */,
