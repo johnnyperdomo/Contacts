@@ -16,12 +16,33 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         fetchCoreData()
+        setUpNavBar()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    
+    func setUpNavBar() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.title = "Contacts"
         
+        let searchController = UISearchController(searchResultsController: nil)
+        
+        let favoriteBtnItem = UIBarButtonItem(image: UIImage(named: "starFilled") , style: .plain, target: self, action: #selector(showFavoriteContacts))
+        let sortBtnItem = UIBarButtonItem(image: UIImage(named: "sortIcon"), style: .plain, target: self, action: #selector(sortContactsByType))
+        
+        self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        
+        self.navigationItem.setRightBarButton(sortBtnItem, animated: true)
+        self.navigationItem.setLeftBarButton(favoriteBtnItem, animated: true)
     }
+    
+    @objc func showFavoriteContacts() {
+        print("favorites Contact Btn pressed")
+    }
+    
+    @objc func sortContactsByType() {
+        print("sort contacts btn pressed")
+    }
+    
     
     let indexLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
@@ -124,7 +145,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             rowNumber += self.tableView.numberOfRows(inSection: i)
         }
         
-        managedContext.delete(personArray[rowNumber]) 
+        managedContext.delete(personArray[rowNumber])
         namesArray.remove(at: rowNumber)
         
         do { //save the managed context to update everything
