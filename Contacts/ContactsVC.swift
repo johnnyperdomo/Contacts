@@ -34,6 +34,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func createNameDictionary() {
         
+        contactNamesDictionary.removeAll()
         for name in namesArray {
             
             let firstLetter = "\(name[name.startIndex])"
@@ -55,10 +56,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBAction func createContactBtnPressed(_ sender: Any) {
         guard let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileVC") else { return } //to create identifier to move between views
-        guard let root = UIApplication.shared.keyWindow?.rootViewController else { return }
-        self.definesPresentationContext = true
-        profileVC.modalPresentationStyle = .overCurrentContext
-        root.present(profileVC, animated: true, completion: nil)
+        present(profileVC, animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -77,15 +75,20 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func fetchCoreData() {
         fetchContacts { (complete) in
             
+            namesArray.removeAll()
+            
             if complete {
                 print("got data")
+                
+                personArray = personArray.sorted(by: { (a, b) -> Bool in
+                    return a.firstName! < b.firstName!
+                })
                 
                 for i in personArray {
                     let fullName = "\(i.firstName!) \(i.lastName!)"
                     
                     namesArray.append(fullName)
                 }
-                print(namesArray)
                 createNameDictionary()
             } else {
                 print("error fetched core data")
@@ -112,23 +115,99 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
     }
     
+    func removeContact(atIndexPath indexPath: IndexPath) { //to remove a goal, we want to remove it from the core data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        var rowNumber = indexPath.row
+        for i in 0..<indexPath.section {
+            rowNumber += self.tableView.numberOfRows(inSection: i)
+        }
+        
+        managedContext.delete(personArray[rowNumber]) 
+        namesArray.remove(at: rowNumber)
+        
+        do { //save the managed context to update everything
+            try managedContext.save()
+            
+            print("successfully removed Contact")
+        } catch {
+            debugPrint("Could not remove: \(error.localizedDescription)")
+        }
+        
+        
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as? ContactsCell else { return UITableViewCell() }
         
         let letter = indexLettersInContactsArray[indexPath.section]
         
-        if let names = contactNamesDictionary[letter.uppercased()] {
+        if var names = contactNamesDictionary[letter.uppercased()] {
+            names = names.sorted()
             cell.contactName.text = names[indexPath.row]
         }
         
         return cell
     }
     
+    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            let sortedDict = contactNamesDictionary.sorted { $0.key < $1.key }
+            let dictKey = Array(sortedDict[indexPath.section].key)
+            
+            let arrayCount = contactNamesDictionary[String(dictKey)]?.count
+            
+            if arrayCount == 1 { //if sections doesn't contain values, delete section header
+                
+                self.removeContact(atIndexPath: indexPath)
+                self.fetchCoreData()
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                let indexSet = NSMutableIndexSet()
+                indexSet.add(indexPath.section)
+                
+                tableView.deleteSections(indexSet as IndexSet, with: .automatic)
+                tableView.endUpdates()
+            } else {
+                
+                self.removeContact(atIndexPath: indexPath)
+                self.fetchCoreData()
+                
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.endUpdates()
+            }
+        }
+    }
+    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return indexLettersInContactsArray[section]
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return indexLetters
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     
+        let indexPath = tableView.indexPathForSelectedRow
+
+        var rowNumber = indexPath!.row
+        for i in 0..<indexPath!.section {
+            rowNumber += self.tableView.numberOfRows(inSection: i)
+        }
     }
 }

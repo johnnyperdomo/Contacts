@@ -40,12 +40,10 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
 //            print(dateOfBirthTextField.text)
 //            print(valueArrays)
 //
-            saveProfile(firstName: firstNameTxtField.text!, lastName: lastNameTxtField.text!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: valueArrays[0]!, emails: valueArrays[1]!, addresses: valueArrays[2]!) { (complete) in
+            saveProfile(firstName: (firstNameTxtField.text?.capitalized)!, lastName: (lastNameTxtField.text?.capitalized)!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: valueArrays[0]!, emails: valueArrays[1]!, addresses: valueArrays[2]!) { (complete) in
                 
                 if complete {
                     guard let contactsVC = storyboard?.instantiateViewController(withIdentifier: "ContactsVC") else { return } //to create identifier to move between views
-                    self.definesPresentationContext = true
-                    contactsVC.modalPresentationStyle = .overCurrentContext
                     self.present(contactsVC, animated: true)
                 } else {
                     print("error saving")
@@ -170,7 +168,6 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = createProfileTableView.dequeueReusableCell(withIdentifier: "createProfileCell", for: indexPath) as? CreateProfileCell else { return UITableViewCell() }
-        
         
         
         let value = valueArrays[indexPath.section]
