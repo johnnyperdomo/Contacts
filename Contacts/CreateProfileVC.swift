@@ -157,11 +157,6 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-//
-//        for (key, value) in valueArrays {
-//            print("key \(key) has \(value.count) values, named \(value)")
-//        }
-//
         return (valueArrays[section]?.count)!
         
     }

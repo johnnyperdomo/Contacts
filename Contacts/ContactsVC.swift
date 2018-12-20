@@ -17,22 +17,48 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.dataSource = self
         fetchCoreData()
         setUpNavBar()
+
     }
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     func setUpNavBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "Contacts"
         
-        let searchController = UISearchController(searchResultsController: nil)
+        let favoriteBtnItem = UIBarButtonItem(image: UIImage(named: "starFilled"), style: .plain, target: self, action: #selector(showFavoriteContacts))
+        favoriteBtnItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
-        let favoriteBtnItem = UIBarButtonItem(image: UIImage(named: "starFilled") , style: .plain, target: self, action: #selector(showFavoriteContacts))
         let sortBtnItem = UIBarButtonItem(image: UIImage(named: "sortIcon"), style: .plain, target: self, action: #selector(sortContactsByType))
+        sortBtnItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
         
-        self.navigationItem.setRightBarButton(sortBtnItem, animated: true)
-        self.navigationItem.setLeftBarButton(favoriteBtnItem, animated: true)
+        self.navigationItem.rightBarButtonItem = sortBtnItem
+        self.navigationItem.leftBarButtonItem = favoriteBtnItem
+        
+        searchController.searchResultsUpdater = self as UISearchResultsUpdating
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        
+    }
+    
+    var filteredPersonArray: [Person] = []
+    
+    func filterContacts(text: String, scope: String = "All") {
+        
+        filteredPersonArray = personArray.filter({ (person) -> Bool in
+            
+            let fullName = "\(person.firstName?.lowercased() ?? "") \(person.lastName?.lowercased() ?? "")"
+            
+            print(fullName)
+            return fullName.contains(text.lowercased())
+        })
+
+        
+        tableView.reloadData()
+        
     }
     
     @objc func showFavoriteContacts() {
@@ -81,16 +107,31 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return contactNamesDictionary.keys.count
+        
+        var count = Int()
+        
+         if searchController.isActive && searchController.searchBar.text != "" {
+            count = 1
+         } else {
+            count = contactNamesDictionary.keys.count
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let letter = indexLettersInContactsArray[section]
         
-        if let names = contactNamesDictionary[letter] {
-            return names.count
+        var count = Int()
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            count = filteredPersonArray.count
+        } else {
+            let letter = indexLettersInContactsArray[section]
+            
+            if let names = contactNamesDictionary[letter] {
+                count = names.count
+            }
         }
-        return 0
+       return count
     }
 
     func fetchCoreData() {
@@ -114,7 +155,6 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             } else {
                 print("error fetched core data")
             }
-            
         }
     }
     
@@ -133,7 +173,6 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             print("error fetching data")
             completion(false)
         }
-        
     }
     
     func removeContact(atIndexPath indexPath: IndexPath) { //to remove a goal, we want to remove it from the core data
@@ -155,30 +194,39 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         } catch {
             debugPrint("Could not remove: \(error.localizedDescription)")
         }
-        
-        
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as? ContactsCell else { return UITableViewCell() }
-        
-        let letter = indexLettersInContactsArray[indexPath.section]
-        
-        if var names = contactNamesDictionary[letter.uppercased()] {
-            names = names.sorted()
-            cell.contactName.text = names[indexPath.row]
+    
+        var text = String()
+
+        if searchController.isActive && searchController.searchBar.text != "" {
+            if let firstName = filteredPersonArray[indexPath.row].firstName?.capitalized, let lastName = filteredPersonArray[indexPath.row].lastName?.capitalized {
+                text = "\(firstName) \(lastName)"
+            }
+            
+        } else {
+            let letter = indexLettersInContactsArray[indexPath.section]
+
+            if var names = contactNamesDictionary[letter.uppercased()] {
+                names = names.sorted()
+                text = names[indexPath.row]
+            }
         }
+        
+        cell.contactName.text = text
         
         return cell
     }
     
-    
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return false
+        }
         return true
     }
-    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -213,9 +261,17 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return indexLettersInContactsArray[section]
+        
+        var sectionTitle = String()
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            sectionTitle = "Top Name Matches"
+        } else {
+            sectionTitle = indexLettersInContactsArray[section]
+        }
+        
+        return sectionTitle
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -230,5 +286,14 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         for i in 0..<indexPath!.section {
             rowNumber += self.tableView.numberOfRows(inSection: i)
         }
+    }
+}
+
+extension ContactsVC: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContacts(text: searchController.searchBar.text!)
+ //       print(filteredPersonArray)
+    //    print(namesArray)
     }
 }
