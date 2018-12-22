@@ -56,7 +56,6 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             return fullName.contains(text.lowercased())
         })
 
-        
         tableView.reloadData()
         
     }
@@ -200,24 +199,34 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as? ContactsCell else { return UITableViewCell() }
     
-        var text = String()
+        var attributedText = NSAttributedString()
 
         if searchController.isActive && searchController.searchBar.text != "" {
             if let firstName = filteredPersonArray[indexPath.row].firstName?.capitalized, let lastName = filteredPersonArray[indexPath.row].lastName?.capitalized {
-                text = "\(firstName) \(lastName)"
+                let text = "\(firstName) \(lastName)"
+                
+                let range = (text.lowercased() as NSString).range(of: (searchController.searchBar.text?.lowercased())!)
+                
+                let attributedString = NSMutableAttributedString(string: text)
+                attributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: range)
+                attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: 18), range: range)
+                
+                attributedText = attributedString
             }
-            
         } else {
             let letter = indexLettersInContactsArray[indexPath.section]
 
             if var names = contactNamesDictionary[letter.uppercased()] {
                 names = names.sorted()
-                text = names[indexPath.row]
+                
+                let text = names[indexPath.row]
+                let attributedString = NSMutableAttributedString(string: text)
+                attributedText = attributedString
             }
         }
         
-        cell.contactName.text = text
-        
+        cell.contactName.attributedText = attributedText
+
         return cell
     }
     
