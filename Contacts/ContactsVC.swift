@@ -26,7 +26,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "Contacts"
         
-        let favoriteBtnItem = UIBarButtonItem(image: UIImage(named: "starFilled"), style: .plain, target: self, action: #selector(showFavoriteContacts))
+        let favoriteBtnItem = UIBarButtonItem(image: UIImage(named: "starUnfilled"), style: .plain, target: self, action: #selector(showFavoriteContacts))
         favoriteBtnItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         let sortBtnItem = UIBarButtonItem(image: UIImage(named: "sortIcon"), style: .plain, target: self, action: #selector(sortContactsByType))
@@ -102,7 +102,8 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func createContactBtnPressed(_ sender: Any) {
-        guard let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileVC") else { return } //to create identifier to move between views
+        let profileVC = storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as! CreateProfileVC//to create identifier to move between views
+        profileVC.initProfileView(profileType: .createNew)
         present(profileVC, animated: true, completion: nil)
     }
     
@@ -228,6 +229,10 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return true
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
@@ -286,6 +291,18 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         for i in 0..<indexPath!.section {
             rowNumber += self.tableView.numberOfRows(inSection: i)
         }
+        
+        let firstName = personArray[rowNumber].firstName
+        let lastName = personArray[rowNumber].lastName
+        let dateOfBirth = personArray[rowNumber].dateOfBirth
+        let phoneNumbers = personArray[rowNumber].phoneNumbers
+        let emails = personArray[rowNumber].emails
+        let addresses = personArray[rowNumber].addresses
+        
+        let profileVC = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as! CreateProfileVC
+        profileVC.initProfileView(firstName: firstName!, lastName: lastName!, dateOfBirth: dateOfBirth!, phoneNumbers: phoneNumbers as! [String], emails: emails as! [String], addresses: addresses as! [String], profileType: .view)
+        present(profileVC, animated: true, completion: nil)
+        
     }
 }
 

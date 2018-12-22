@@ -89,12 +89,12 @@
                                 <rect key="frame" x="26" y="65" width="34" height="30"/>
                                 <state key="normal" title="back"/>
                                 <connections>
-                                    <action selector="backBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="t8P-xE-QL8"/>
+                                    <action selector="backBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="0dt-El-NoP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zD1-Jc-JvW">
-                                <rect key="frame" x="354" y="72" width="35" height="30"/>
-                                <state key="normal" title="done"/>
+                                <rect key="frame" x="357" y="72" width="32" height="30"/>
+                                <state key="normal" title="save"/>
                                 <connections>
                                     <action selector="saveBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="IxE-aB-aTu"/>
                                 </connections>
@@ -153,20 +153,54 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nvW-zm-59U">
+                                <rect key="frame" x="341" y="72" width="47" height="30"/>
+                                <state key="normal" title="modify"/>
+                                <connections>
+                                    <action selector="modifyProfileBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="QNa-Ub-DR3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Johnny " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQN-Pd-Ayr">
+                                <rect key="frame" x="100" y="219" width="214" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of birth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8sW-ac-rgA">
+                                <rect key="frame" x="100" y="314" width="214" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTD-d9-sRq">
+                                <rect key="frame" x="20" y="65" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="cancelBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="Nfd-wm-V2F"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="nvW-zm-59U" firstAttribute="top" secondItem="hrJ-51-QTN" secondAttribute="top" constant="28" id="006-X5-z2A"/>
+                            <constraint firstItem="8sW-ac-rgA" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="100" id="1D3-hd-dzn"/>
                             <constraint firstItem="Vpr-0b-tgF" firstAttribute="top" secondItem="hrJ-51-QTN" secondAttribute="top" constant="21" id="4GR-yW-bQX"/>
+                            <constraint firstItem="8sW-ac-rgA" firstAttribute="top" secondItem="3xv-du-8we" secondAttribute="bottom" constant="20" id="4UD-a5-mDM"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="Tgi-Xq-FmM" secondAttribute="trailing" constant="82" id="6n3-Z5-DfL"/>
+                            <constraint firstItem="cTD-d9-sRq" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="20" id="9gN-CD-wSw"/>
                             <constraint firstItem="w0h-Jp-wRd" firstAttribute="top" secondItem="eq6-Qw-3mZ" secondAttribute="bottom" constant="10" id="BPD-9C-Fle"/>
                             <constraint firstItem="eq6-Qw-3mZ" firstAttribute="centerX" secondItem="erC-O0-rJF" secondAttribute="centerX" id="BnB-1Q-m53"/>
+                            <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="8sW-ac-rgA" secondAttribute="trailing" constant="100" id="ByN-lu-vg2"/>
                             <constraint firstItem="Tgi-Xq-FmM" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="83" id="J17-Ou-0gW"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="3xv-du-8we" secondAttribute="trailing" constant="82" id="NvL-MQ-cXn"/>
                             <constraint firstItem="zD1-Jc-JvW" firstAttribute="top" secondItem="hrJ-51-QTN" secondAttribute="top" constant="28" id="QY2-of-aJG"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="w0h-Jp-wRd" secondAttribute="trailing" constant="82" id="SdI-uS-GT1"/>
+                            <constraint firstItem="cTD-d9-sRq" firstAttribute="top" secondItem="hrJ-51-QTN" secondAttribute="top" constant="21" id="TRx-al-Sa5"/>
                             <constraint firstItem="Oi1-Or-s13" firstAttribute="top" secondItem="Tgi-Xq-FmM" secondAttribute="bottom" constant="20" id="U69-bQ-W1S"/>
+                            <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="nvW-zm-59U" secondAttribute="trailing" constant="26" id="UdT-9N-YDy"/>
                             <constraint firstItem="Oi1-Or-s13" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" id="V95-OF-Nzo"/>
                             <constraint firstItem="3xv-du-8we" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="83" id="WLi-hS-bbE"/>
+                            <constraint firstItem="gQN-Pd-Ayr" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="100" id="Ybg-Nl-jIX"/>
                             <constraint firstItem="w0h-Jp-wRd" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="83" id="YyS-t9-Xkc"/>
                             <constraint firstItem="Tgi-Xq-FmM" firstAttribute="top" secondItem="3xv-du-8we" secondAttribute="bottom" constant="20" id="bs1-GX-atm"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="bottom" secondItem="Oi1-Or-s13" secondAttribute="bottom" id="efd-eO-7mC"/>
@@ -174,20 +208,28 @@
                             <constraint firstItem="Vpr-0b-tgF" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="26" id="gae-JC-7uH"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="Oi1-Or-s13" secondAttribute="trailing" id="kz8-3B-Ycr"/>
                             <constraint firstItem="eq6-Qw-3mZ" firstAttribute="top" secondItem="hrJ-51-QTN" secondAttribute="top" constant="60" id="m31-RG-BYk"/>
+                            <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="gQN-Pd-Ayr" secondAttribute="trailing" constant="100" id="rx1-Nr-HwA"/>
                             <constraint firstItem="3xv-du-8we" firstAttribute="top" secondItem="w0h-Jp-wRd" secondAttribute="bottom" constant="20" id="xJO-RX-9FE"/>
+                            <constraint firstItem="gQN-Pd-Ayr" firstAttribute="top" secondItem="eq6-Qw-3mZ" secondAttribute="bottom" constant="15" id="yfk-I8-rgx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hrJ-51-QTN"/>
                     </view>
                     <connections>
+                        <outlet property="backBtn" destination="Vpr-0b-tgF" id="vyP-rs-v9o"/>
+                        <outlet property="cancelBtn" destination="cTD-d9-sRq" id="I1s-NE-LoY"/>
                         <outlet property="createProfileTableView" destination="Oi1-Or-s13" id="bkr-N0-oWm"/>
+                        <outlet property="dateOfBirthLbl" destination="8sW-ac-rgA" id="lqa-9e-hoU"/>
                         <outlet property="dateOfBirthTextField" destination="Tgi-Xq-FmM" id="qGO-bt-ANe"/>
                         <outlet property="firstNameTxtField" destination="w0h-Jp-wRd" id="4ve-Ms-naz"/>
                         <outlet property="lastNameTxtField" destination="3xv-du-8we" id="ouG-cV-tUT"/>
+                        <outlet property="modifyBtn" destination="nvW-zm-59U" id="Pc3-jG-fla"/>
+                        <outlet property="nameLbl" destination="gQN-Pd-Ayr" id="Key-Lc-ey1"/>
+                        <outlet property="saveBtn" destination="zD1-Jc-JvW" id="gzk-3z-8ra"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nLD-dz-nhz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2527.536231884058" y="42.857142857142854"/>
+            <point key="canvasLocation" x="2143" y="19"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nHZ-XT-oHv">
