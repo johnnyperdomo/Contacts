@@ -28,8 +28,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         dateOfBirthTextField.isHidden = isDateOfBirthTextFieldHidden
         saveBtn.isHidden = isSaveBtnHidden
         modifyBtn.isHidden = isModifyBtnHidden
-  //      backBtn.isHidden = isBackBtnHidden
-   //     cancelBtn.isHidden = isCancelBtnHidden
+        changeImageBtn.isHidden = isChangeImageBtnHidden
         
         nameLbl.text = "\(firstNameString) \(lastNameString)"
         dateOfBirthLbl.text = dateOfBirthString
@@ -46,6 +45,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     var isSaveBtnHidden = Bool()
     var isBackBtnHidden = Bool()
     var isCancelBtnHidden = Bool()
+    var isChangeImageBtnHidden = Bool()
     
     var firstNameString = String()
     var lastNameString = String()
@@ -95,7 +95,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
             
         } else {
             
-            modifyProfileInfo(searchFirstName: firstNameString, searchLastName: lastNameString, searchDateOfBirth: dateOfBirthString, newFirstName: firstNameTxtField.text!, newLastName: lastNameTxtField.text!, newDateOfBirth: dateOfBirthTextField.text!) { (complete) in
+            modifyProfileInfo(searchFirstName: firstNameString, searchLastName: lastNameString, searchDateOfBirth: dateOfBirthString, newFirstName: firstNameTxtField.text!, newLastName: lastNameTxtField.text!, newDateOfBirth: dateOfBirthTextField.text!, newProfileImage: profileImg.image!, newPhonenumbers: valueArrays[0]!, newEmails: valueArrays[1]!, newAddresses: valueArrays[2]!) { (complete) in
             
                 if complete {
                     guard let contactsVC = storyboard?.instantiateViewController(withIdentifier: "ContactsVC") else { return } //to create identifier to move between views
@@ -130,7 +130,11 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         dateOfBirthTextField.isHidden = false
         
         modifyBtn.isHidden = true
+        backBtn.isHidden = true
+        
         saveBtn.isHidden = false
+        cancelBtn.isHidden = false
+        changeImageBtn.isHidden = false
         
         firstNameTxtField.text = firstNameString
         lastNameTxtField.text = lastNameString
@@ -138,6 +142,22 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     @IBAction func cancelBtnPressed(_ sender: Any) {
+        nameLbl.isHidden = false
+        dateOfBirthLbl.isHidden = false
+        firstNameTxtField.isHidden = true
+        lastNameTxtField.isHidden = true
+        dateOfBirthTextField.isHidden = true
+        
+        modifyBtn.isHidden = false
+        backBtn.isHidden = false
+        
+        saveBtn.isHidden = true
+        cancelBtn.isHidden = true
+        changeImageBtn.isHidden = true
+        
+        nameLbl.text = "\(firstNameString) \(lastNameString)"
+        dateOfBirthLbl.text = dateOfBirthString
+        
     }
     
     
@@ -146,10 +166,6 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     func initProfileView(firstName: String = "", lastName: String = "", dateOfBirth: String = "", profileImage: UIImage = UIImage(named: "personPlaceholder")!, phoneNumbers: [String] = [], emails: [String] = [], addresses: [String] = [], profileType: ProfileTypeEnum) {
-        
-        print(phoneNumbers)
-        print(emails)
-        print(addresses)
         
         valueArrays[0] = phoneNumbers
         valueArrays[1] = emails
@@ -168,6 +184,8 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
             self.isLastNameTextFieldHidden = false
             self.isDateOfBirthTextFieldHidden = false
             self.isSaveBtnHidden = false
+            self.isChangeImageBtnHidden = false
+            
             self.profileImage = profileImage
         case .view:
             print("view")
@@ -180,6 +198,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
             self.isLastNameTextFieldHidden = true
             self.isDateOfBirthTextFieldHidden = true
             self.isSaveBtnHidden = true
+            self.isChangeImageBtnHidden = true
             
             self.firstNameString = firstName
             self.lastNameString = lastName
@@ -189,7 +208,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         }
     }
 
-    func modifyProfileInfo(searchFirstName: String, searchLastName: String, searchDateOfBirth: String, newFirstName: String, newLastName: String, newDateOfBirth: String, completion: (_ complete: Bool) -> ()) {
+    func modifyProfileInfo(searchFirstName: String, searchLastName: String, searchDateOfBirth: String, newFirstName: String, newLastName: String, newDateOfBirth: String, newProfileImage: UIImage, newPhonenumbers: [String], newEmails: [String], newAddresses: [String], completion: (_ complete: Bool) -> ()) {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -204,9 +223,16 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 for result in results as! [NSManagedObject] {
                     if let firstName = result.value(forKey: "firstName") as? String, let lastName = result.value(forKey: "lastName") as? String, let dateOfBirth = result.value(forKey: "dateOfBirth") as? String {
                         if firstName == searchFirstName && lastName == searchLastName && dateOfBirth == searchDateOfBirth {
+                            
+                            let profileImageData: Data = newProfileImage.pngData()!
+                            
                             result.setValue(newFirstName, forKey: "firstName")
                             result.setValue(newLastName, forKey: "lastName")
                             result.setValue(newDateOfBirth, forKey: "dateOfBirth")
+                            result.setValue(profileImageData, forKey: "profileImage")
+                            result.setValue(newPhonenumbers, forKey: "phoneNumbers")
+                            result.setValue(newEmails, forKey: "emails")
+                            result.setValue(newAddresses, forKey: "addresses")
                             
                             do {
                                 

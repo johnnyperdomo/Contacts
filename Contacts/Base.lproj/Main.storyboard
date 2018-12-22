@@ -183,8 +183,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cTD-d9-sRq">
-                                <rect key="frame" x="20" y="65" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="20" y="65" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="Nfd-wm-V2F"/>
                                 </connections>
