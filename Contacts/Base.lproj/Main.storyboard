@@ -30,19 +30,29 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIe-uj-qve">
-                                                    <rect key="frame" x="86" y="26" width="44.5" height="21"/>
+                                                    <rect key="frame" x="90" y="26" width="44.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="personPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="iGg-Zz-stg">
+                                                    <rect key="frame" x="30" y="17" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="4qk-Bv-7p6"/>
+                                                        <constraint firstAttribute="width" constant="40" id="rwb-U0-vRk"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fIe-uj-qve" secondAttribute="bottom" constant="16" id="1h4-dJ-ily"/>
-                                                <constraint firstItem="fIe-uj-qve" firstAttribute="leading" secondItem="ldZ-i3-zBB" secondAttribute="leadingMargin" constant="66" id="Dj3-44-gUc"/>
                                                 <constraint firstItem="fIe-uj-qve" firstAttribute="top" secondItem="ldZ-i3-zBB" secondAttribute="topMargin" constant="15" id="KCt-5G-uQa"/>
+                                                <constraint firstItem="iGg-Zz-stg" firstAttribute="centerY" secondItem="ldZ-i3-zBB" secondAttribute="centerY" id="ett-io-0BT"/>
+                                                <constraint firstItem="iGg-Zz-stg" firstAttribute="leading" secondItem="ldZ-i3-zBB" secondAttribute="leadingMargin" constant="10" id="qkj-65-aju"/>
+                                                <constraint firstItem="fIe-uj-qve" firstAttribute="leading" secondItem="iGg-Zz-stg" secondAttribute="trailing" constant="20" id="yxd-l9-3iO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="contactImage" destination="iGg-Zz-stg" id="9Ve-Xl-hoQ"/>
                                             <outlet property="contactName" destination="fIe-uj-qve" id="5Kc-oK-DZf"/>
                                         </connections>
                                     </tableViewCell>
@@ -75,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZv-ov-Dq6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1471" y="20"/>
+            <point key="canvasLocation" x="1469.5652173913045" y="19.419642857142858"/>
         </scene>
         <!--Create ProfileVC-->
         <scene sceneID="C5U-TZ-fsP">
@@ -179,6 +189,13 @@
                                     <action selector="cancelBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="Nfd-wm-V2F"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEA-6z-NUb">
+                                <rect key="frame" x="157.5" y="174" width="99" height="30"/>
+                                <state key="normal" title="Change Image"/>
+                                <connections>
+                                    <action selector="changeImageBtnPressed:" destination="muk-9P-hig" eventType="touchUpInside" id="oD4-Y2-mdB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -200,12 +217,14 @@
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="nvW-zm-59U" secondAttribute="trailing" constant="26" id="UdT-9N-YDy"/>
                             <constraint firstItem="Oi1-Or-s13" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" id="V95-OF-Nzo"/>
                             <constraint firstItem="3xv-du-8we" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="83" id="WLi-hS-bbE"/>
+                            <constraint firstItem="GEA-6z-NUb" firstAttribute="centerX" secondItem="erC-O0-rJF" secondAttribute="centerX" id="XZM-9n-jhF"/>
                             <constraint firstItem="gQN-Pd-Ayr" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="100" id="Ybg-Nl-jIX"/>
                             <constraint firstItem="w0h-Jp-wRd" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="83" id="YyS-t9-Xkc"/>
                             <constraint firstItem="Tgi-Xq-FmM" firstAttribute="top" secondItem="3xv-du-8we" secondAttribute="bottom" constant="20" id="bs1-GX-atm"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="bottom" secondItem="Oi1-Or-s13" secondAttribute="bottom" id="efd-eO-7mC"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="zD1-Jc-JvW" secondAttribute="trailing" constant="25" id="fdJ-IP-lsW"/>
                             <constraint firstItem="Vpr-0b-tgF" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="26" id="gae-JC-7uH"/>
+                            <constraint firstItem="GEA-6z-NUb" firstAttribute="bottom" secondItem="eq6-Qw-3mZ" secondAttribute="bottom" id="hCB-4Q-5kS"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="Oi1-Or-s13" secondAttribute="trailing" id="kz8-3B-Ycr"/>
                             <constraint firstItem="eq6-Qw-3mZ" firstAttribute="top" secondItem="hrJ-51-QTN" secondAttribute="top" constant="60" id="m31-RG-BYk"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="gQN-Pd-Ayr" secondAttribute="trailing" constant="100" id="rx1-Nr-HwA"/>
@@ -217,6 +236,7 @@
                     <connections>
                         <outlet property="backBtn" destination="Vpr-0b-tgF" id="vyP-rs-v9o"/>
                         <outlet property="cancelBtn" destination="cTD-d9-sRq" id="I1s-NE-LoY"/>
+                        <outlet property="changeImageBtn" destination="GEA-6z-NUb" id="0Mf-9b-QO1"/>
                         <outlet property="createProfileTableView" destination="Oi1-Or-s13" id="bkr-N0-oWm"/>
                         <outlet property="dateOfBirthLbl" destination="8sW-ac-rgA" id="lqa-9e-hoU"/>
                         <outlet property="dateOfBirthTextField" destination="Tgi-Xq-FmM" id="qGO-bt-ANe"/>
@@ -224,6 +244,7 @@
                         <outlet property="lastNameTxtField" destination="3xv-du-8we" id="ouG-cV-tUT"/>
                         <outlet property="modifyBtn" destination="nvW-zm-59U" id="Pc3-jG-fla"/>
                         <outlet property="nameLbl" destination="gQN-Pd-Ayr" id="Key-Lc-ey1"/>
+                        <outlet property="profileImg" destination="eq6-Qw-3mZ" id="iXw-z2-MG5"/>
                         <outlet property="saveBtn" destination="zD1-Jc-JvW" id="gzk-3z-8ra"/>
                     </connections>
                 </viewController>

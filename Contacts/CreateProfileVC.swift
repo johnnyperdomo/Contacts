@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +33,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         
         nameLbl.text = "\(firstNameString) \(lastNameString)"
         dateOfBirthLbl.text = dateOfBirthString
+        profileImg.image = profileImage
     }
     
     var valueArrays: [Int : [String]] = [0: [], 1: [], 2: []]
@@ -49,6 +50,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     var firstNameString = String()
     var lastNameString = String()
     var dateOfBirthString = String()
+    var profileImage = UIImage()
     
     var phoneNumberArray = [String]()
     var emailArray = [String]()
@@ -67,6 +69,8 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var profileImg: UIImageView!
+    @IBOutlet weak var changeImageBtn: UIButton!
     
     
     @IBAction func saveBtnPressed(_ sender: Any) {
@@ -76,7 +80,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
             
             if firstNameTxtField.text != "" && lastNameTxtField.text != "" && dateOfBirthTextField.text != "" && (valueArrays[0]?.count)! >= 1 && (valueArrays[1]?.count)! >= 1 {
                 
-                saveProfile(firstName: (firstNameTxtField.text?.capitalized)!, lastName: (lastNameTxtField.text?.capitalized)!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: valueArrays[0]!, emails: valueArrays[1]!, addresses: valueArrays[2]!) { (complete) in
+                saveProfile(firstName: (firstNameTxtField.text?.capitalized)!, lastName: (lastNameTxtField.text?.capitalized)!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: valueArrays[0]!, emails: valueArrays[1]!, addresses: valueArrays[2]!, profileImage: profileImg.image!) { (complete) in
                     
                     if complete {
                         guard let contactsVC = storyboard?.instantiateViewController(withIdentifier: "ContactsVC") else { return } //to create identifier to move between views
@@ -108,6 +112,15 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         
     }
     
+    @IBAction func changeImageBtnPressed(_ sender: Any) {
+        let picker = UIImagePickerController()
+        
+        picker.delegate = self
+        picker.allowsEditing = true
+        
+        present(picker, animated: true, completion: nil)
+    }
+    
     @IBAction func modifyProfileBtnPressed(_ sender: Any) {
         
         nameLbl.isHidden = true
@@ -132,7 +145,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         dismiss(animated: true, completion: nil)
     }
     
-    func initProfileView(firstName: String = "", lastName: String = "", dateOfBirth: String = "", phoneNumbers: [String] = [], emails: [String] = [], addresses: [String] = [], profileType: ProfileTypeEnum) {
+    func initProfileView(firstName: String = "", lastName: String = "", dateOfBirth: String = "", profileImage: UIImage = UIImage(named: "personPlaceholder")!, phoneNumbers: [String] = [], emails: [String] = [], addresses: [String] = [], profileType: ProfileTypeEnum) {
         
         print(phoneNumbers)
         print(emails)
@@ -147,30 +160,31 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         switch profileType {
         case .createNew:
             print("create new")
-            isNameLblHidden = true
-            isDateLblHidden = true
-            isModifyBtnHidden = true
+            self.isNameLblHidden = true
+            self.isDateLblHidden = true
+            self.isModifyBtnHidden = true
 
-            isFirstNameTextFieldHidden = false
-            isLastNameTextFieldHidden = false
-            isDateOfBirthTextFieldHidden = false
-            isSaveBtnHidden = false
+            self.isFirstNameTextFieldHidden = false
+            self.isLastNameTextFieldHidden = false
+            self.isDateOfBirthTextFieldHidden = false
+            self.isSaveBtnHidden = false
+            self.profileImage = profileImage
         case .view:
             print("view")
             
-            isNameLblHidden = false
-            isDateLblHidden = false
-            isModifyBtnHidden = false
+            self.isNameLblHidden = false
+            self.isDateLblHidden = false
+            self.isModifyBtnHidden = false
             
-            isFirstNameTextFieldHidden = true
-            isLastNameTextFieldHidden = true
-            isDateOfBirthTextFieldHidden = true
-            isSaveBtnHidden = true
+            self.isFirstNameTextFieldHidden = true
+            self.isLastNameTextFieldHidden = true
+            self.isDateOfBirthTextFieldHidden = true
+            self.isSaveBtnHidden = true
             
-            firstNameString = firstName
-            lastNameString = lastName
-            dateOfBirthString = dateOfBirth
-            
+            self.firstNameString = firstName
+            self.lastNameString = lastName
+            self.dateOfBirthString = dateOfBirth
+            self.profileImage = profileImage
      //       modifyProfileInfo(searchFirstName: firstName, searchLastName: lastName)
         }
     }
@@ -214,15 +228,18 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     
-    func saveProfile(firstName: String, lastName: String, dateOfBirth: String, phoneNumbers: [String], emails: [String], addresses: [String], completion: (_ complete: Bool) -> ()) {
+    func saveProfile(firstName: String, lastName: String, dateOfBirth: String, phoneNumbers: [String], emails: [String], addresses: [String], profileImage: UIImage, completion: (_ complete: Bool) -> ()) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let person = Person(context: managedContext)
         
+        let profileImageData: Data = profileImage.pngData()!
+        
         person.firstName = firstName
         person.lastName = lastName
         person.dateOfBirth = dateOfBirth
+        person.profileImage = profileImageData
         person.phoneNumbers = phoneNumbers as NSObject
         person.emails = emails as NSObject
         person.addresses = addresses as NSObject
@@ -326,4 +343,24 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     
+}
+extension CreateProfileVC {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var selectedImageFromPicker: UIImage? //to see if we selected an image
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] {
+            selectedImageFromPicker = editedImage as? UIImage
+            
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] {
+            selectedImageFromPicker = originalImage as? UIImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker {
+            profileImg.image = selectedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
 }

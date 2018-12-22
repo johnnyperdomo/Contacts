@@ -6,10 +6,10 @@
         <attribute name="dateOfBirth" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="emails" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phoneNumbers" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="profileImage" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
         <element name="Person" positionX="-36" positionY="9" width="128" height="180"/>
