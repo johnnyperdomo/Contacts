@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */; };
+		FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DC21CEE83000F22572 /* CustomButton.swift */; };
+		FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */; };
+		FE57A5E121CEEA8B00F22572 /* CustomUIViewTopRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5E021CEEA8B00F22572 /* CustomUIViewTopRounded.swift */; };
+		FE9E0AED21D0057C00B39060 /* CustomUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E0AEC21D0057C00B39060 /* CustomUIView.swift */; };
+		FE9E0AEF21D00A4F00B39060 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E0AEE21D00A4F00B39060 /* GradientView.swift */; };
 		FEA6A3DD21C9A1F6006410C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3DC21C9A1F6006410C7 /* AppDelegate.swift */; };
 		FEA6A3DF21C9A1F6006410C7 /* ContactsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3DE21C9A1F6006410C7 /* ContactsVC.swift */; };
 		FEA6A3E221C9A1F6006410C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA6A3E021C9A1F6006410C7 /* Main.storyboard */; };
@@ -21,6 +26,11 @@
 
 /* Begin PBXFileReference section */
 		FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTypeEnum.swift; sourceTree = "<group>"; };
+		FE57A5DC21CEE83000F22572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		FE57A5E021CEEA8B00F22572 /* CustomUIViewTopRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIViewTopRounded.swift; sourceTree = "<group>"; };
+		FE9E0AEC21D0057C00B39060 /* CustomUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIView.swift; sourceTree = "<group>"; };
+		FE9E0AEE21D00A4F00B39060 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		FEA6A3D921C9A1F6006410C7 /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEA6A3DC21C9A1F6006410C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FEA6A3DE21C9A1F6006410C7 /* ContactsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsVC.swift; sourceTree = "<group>"; };
@@ -75,6 +85,11 @@
 				FEA6A3E821C9A1F9006410C7 /* LaunchScreen.storyboard */,
 				FEA6A3EB21C9A1F9006410C7 /* Info.plist */,
 				FEA6A3E321C9A1F6006410C7 /* Contacts.xcdatamodeld */,
+				FE57A5DC21CEE83000F22572 /* CustomButton.swift */,
+				FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */,
+				FE57A5E021CEEA8B00F22572 /* CustomUIViewTopRounded.swift */,
+				FE9E0AEC21D0057C00B39060 /* CustomUIView.swift */,
+				FE9E0AEE21D00A4F00B39060 /* GradientView.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -151,10 +166,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */,
+				FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */,
+				FE9E0AEF21D00A4F00B39060 /* GradientView.swift in Sources */,
 				FEA6A3DF21C9A1F6006410C7 /* ContactsVC.swift in Sources */,
 				FEA6A3F821CA5BE5006410C7 /* CreateProfileVC.swift in Sources */,
+				FE9E0AED21D0057C00B39060 /* CustomUIView.swift in Sources */,
 				FEA6A3DD21C9A1F6006410C7 /* AppDelegate.swift in Sources */,
+				FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */,
 				FEA6A3E521C9A1F6006410C7 /* Contacts.xcdatamodeld in Sources */,
+				FE57A5E121CEEA8B00F22572 /* CustomUIViewTopRounded.swift in Sources */,
 				FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */,
 				FEA6A3FA21CA5F3C006410C7 /* CreateProfileCell.swift in Sources */,
 			);

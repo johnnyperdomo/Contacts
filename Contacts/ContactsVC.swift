@@ -151,6 +151,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 
                 for i in personArray {
                     let fullName = "\(i.firstName!) \(i.lastName!)"
+          //          let fullName = "\(i.lastName!) \(i.firstName!)"
                     let image = UIImage(data: i.profileImage!)
                     
                     namesArray.append(fullName)
@@ -217,7 +218,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 
                 let attributedString = NSMutableAttributedString(string: text)
                 attributedString.addAttribute(NSAttributedString.Key.backgroundColor, value: UIColor.yellow, range: range)
-                attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "HelveticaNeue-Bold", size: 18), range: range)
+                attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "AvenirNext-DemiBold", size: 20), range: range)
                 
                 attributedText = attributedString
                 contactImage = image!
@@ -323,6 +324,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 //        })
         
         let fullName = "\(personArray[rowNumber].firstName!) \(personArray[rowNumber].lastName!)"
+   //     let fullName = "\(personArray[rowNumber].lastName!) \(personArray[rowNumber].firstName!)"
         
         let firstName = personArray[rowNumber].firstName
         let lastName = personArray[rowNumber].lastName

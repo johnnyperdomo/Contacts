@@ -31,7 +31,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         changeImageBtn.isHidden = isChangeImageBtnHidden
         
         nameLbl.text = "\(firstNameString) \(lastNameString)"
-        dateOfBirthLbl.text = dateOfBirthString
+        dateOfBirthLbl.text = "Birthday: \(dateOfBirthString) 🎉"
         profileImg.image = profileImage
     }
     
@@ -294,7 +294,7 @@ class CreateProfileVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         let button = UIButton(type: .system)
         button.setTitle(sectionName, for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .green
+        button.backgroundColor = .white
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         
         
