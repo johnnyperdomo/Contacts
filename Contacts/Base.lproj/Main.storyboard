@@ -182,7 +182,7 @@
                     <connections>
                         <outlet property="animationView" destination="DEh-qw-jgr" id="e6l-gq-sEX"/>
                         <outlet property="animationViewLbl" destination="kjT-LV-B4j" id="ord-GD-gtL"/>
-                        <outlet property="tableView" destination="rBE-fT-8af" id="g6a-Jh-c7G"/>
+                        <outlet property="contactsTableView" destination="rBE-fT-8af" id="g6a-Jh-c7G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZv-ov-Dq6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -376,10 +376,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEA-6z-NUb" customClass="CustomButton" customModule="Contacts" customModuleProvider="target">
-                                <rect key="frame" x="137" y="279" width="140" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="qxT-A0-DmR"/>
-                                </constraints>
+                                <rect key="frame" x="132" y="279" width="150" height="36"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                 <state key="normal" title="Change Image">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -466,6 +463,7 @@
                             <constraint firstItem="yZZ-Ax-eUi" firstAttribute="bottom" secondItem="eq6-Qw-3mZ" secondAttribute="bottom" id="GHj-vT-9yF"/>
                             <constraint firstItem="yZZ-Ax-eUi" firstAttribute="trailing" secondItem="eq6-Qw-3mZ" secondAttribute="trailing" id="HIp-PC-FvF"/>
                             <constraint firstItem="Tgi-Xq-FmM" firstAttribute="leading" secondItem="hrJ-51-QTN" secondAttribute="leading" constant="83" id="J17-Ou-0gW"/>
+                            <constraint firstItem="GEA-6z-NUb" firstAttribute="leading" secondItem="eq6-Qw-3mZ" secondAttribute="leading" id="Lee-dy-73s"/>
                             <constraint firstAttribute="bottom" secondItem="8kK-B7-cxj" secondAttribute="bottom" id="MSY-2u-kZb"/>
                             <constraint firstItem="hrJ-51-QTN" firstAttribute="trailing" secondItem="3xv-du-8we" secondAttribute="trailing" constant="82" id="NvL-MQ-cXn"/>
                             <constraint firstItem="zD1-Jc-JvW" firstAttribute="top" secondItem="hrJ-51-QTN" secondAttribute="top" constant="20" id="QY2-of-aJG"/>

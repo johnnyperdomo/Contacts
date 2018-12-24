@@ -28,19 +28,21 @@ class ContactsVC: UIViewController {
     private var contactNamesDictionary = [String: [String]]()
     private var contactImagesDictionary = [String: UIImage]()
     
+    private var sortOrder: SortOrderEnum = .byFirstName
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
+        contactsTableView.delegate = self
+        contactsTableView.dataSource = self
         setUpNavBar()
-        fetchCoreData()
+        fetchCoreData(sortOrderType: sortOrder)
     }
     
     //MARK: IBOutlets -----------------------------------------------------------------------------
     
     @IBOutlet weak private var animationView: LOTAnimationView!
     @IBOutlet weak private var animationViewLbl: UILabel!
-    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var contactsTableView: UITableView!
     
     //MARK: IBActions -----------------------------------------------------------------------------
     
@@ -82,7 +84,7 @@ class ContactsVC: UIViewController {
         animationView.play()
         
         navigationItem.searchController = nil
-        tableView.isHidden = true
+        contactsTableView.isHidden = true
     }
     
     private func stopAnimationLoader() {
@@ -90,7 +92,7 @@ class ContactsVC: UIViewController {
         animationViewLbl.isHidden = true
         animationView.stop()
         navigationItem.searchController = searchController
-        tableView.isHidden = false
+        contactsTableView.isHidden = false
     }
     
     private func startAnimationLoaderNoSearches() {
@@ -101,7 +103,7 @@ class ContactsVC: UIViewController {
         animationViewLbl.isHidden = false
         animationView.play()
         
-        tableView.isHidden = true
+        contactsTableView.isHidden = true
     }
     
     private func createNameDictionary() {
@@ -129,7 +131,22 @@ class ContactsVC: UIViewController {
     }
     
     @objc private func sortContactsByType() {
-        print("sort contacts btn pressed")
+        
+        switch sortOrder {
+        case .byFirstName:
+            sortOrder = .byLastName
+            print("sort order by \(sortOrder)")
+            fetchCoreData(sortOrderType: sortOrder)
+            contactsTableView.reloadData()
+            print(contactNamesDictionary)
+        case .byLastName:
+            sortOrder = .byFirstName
+            print("sort order by \(sortOrder)")
+            fetchCoreData(sortOrderType: sortOrder)
+            contactsTableView.reloadData()
+            print(contactNamesDictionary)
+        }
+        
     }
 }
 
@@ -137,7 +154,7 @@ class ContactsVC: UIViewController {
 
 extension ContactsVC {
     
-    private func fetchCoreData() {
+    private func fetchCoreData(sortOrderType: SortOrderEnum) {
         fetchContacts { (complete) in
             
             namesArray.removeAll()
@@ -156,14 +173,25 @@ extension ContactsVC {
                 })
                 
                 for i in personArray {
-                    let fullName = "\(i.firstName!) \(i.lastName!)"
-                    //          let fullName = "\(i.lastName!) \(i.firstName!)"
+                    
+                    var fullName = String()
+                    
+                    if sortOrderType == .byFirstName {
+                        fullName = "\(i.firstName!) \(i.lastName!)"
+                        print("first name sort")
+                    } else if sortOrderType == .byLastName {
+                        fullName = "\(i.lastName!) \(i.firstName!)"
+                        print("last name sort")
+                    }
+                    
+                   
                     let image = UIImage(data: i.profileImage!)
                     
                     namesArray.append(fullName)
                     contactImagesDictionary[fullName] = image
                 }
                 createNameDictionary()
+                print(namesArray)
             } else {
                 print("error fetched core data")
             }
@@ -193,7 +221,20 @@ extension ContactsVC {
         
         var rowNumber = indexPath.row
         for i in 0..<indexPath.section {
-            rowNumber += self.tableView.numberOfRows(inSection: i)
+            rowNumber += self.contactsTableView.numberOfRows(inSection: i)
+        }
+        
+        if sortOrder == .byFirstName {
+            
+            personArray = personArray.sorted(by: { (a, b) -> Bool in
+                return a.firstName! < b.firstName!
+            })
+            
+        } else if sortOrder == .byLastName {
+            
+            personArray = personArray.sorted(by: { (a, b) -> Bool in
+                return a.lastName! < b.lastName!
+            })
         }
         
         managedContext.delete(personArray[rowNumber])
@@ -212,6 +253,36 @@ extension ContactsVC {
 //MARK: TableView ------------------------------------------------------------------------------
 
 extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        var count = Int()
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            count = 1
+        } else {
+            count = contactNamesDictionary.keys.count
+        }
+        
+        return count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        var count = Int()
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            count = filteredPersonArray.count
+        } else {
+            let letter = indexLettersInContactsArray[section]
+            
+            if let names = contactNamesDictionary[letter] {
+                count = names.count
+            }
+        }
+        
+        return count
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath) as? ContactsCell else { return UITableViewCell() }
@@ -261,62 +332,62 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
         return 70
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        
-        var count = Int()
-        
-        if searchController.isActive && searchController.searchBar.text != "" {
-            count = 1
-        } else {
-            count = contactNamesDictionary.keys.count
-        }
-        
-        return count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        var count = Int()
-        
-        if searchController.isActive && searchController.searchBar.text != "" {
-            count = filteredPersonArray.count
-        } else {
-            let letter = indexLettersInContactsArray[section]
-            
-            if let names = contactNamesDictionary[letter] {
-                count = names.count
-            }
-        }
-        
-        return count
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let indexPath = tableView.indexPathForSelectedRow
         
         var rowNumber = indexPath!.row
         for i in 0..<indexPath!.section {
-            rowNumber += self.tableView.numberOfRows(inSection: i)
+            rowNumber += self.contactsTableView.numberOfRows(inSection: i)
         }
         
-        //        personArray = personArray.sorted(by: { (a, b) -> Bool in
-        //            return a.firstName! > b.firstName!
-        //        })
+        var fullName = String()
         
-        let fullName = "\(personArray[rowNumber].firstName!) \(personArray[rowNumber].lastName!)"
-        //     let fullName = "\(personArray[rowNumber].lastName!) \(personArray[rowNumber].firstName!)"
+        var firstName = String()
+        var lastName = String()
+        var dateOfBirth = String()
+        var phoneNumbers = NSObject()
+        var emails = NSObject()
+        var addresses = NSObject()
+        var contactImage = UIImage()
         
-        let firstName = personArray[rowNumber].firstName
-        let lastName = personArray[rowNumber].lastName
-        let dateOfBirth = personArray[rowNumber].dateOfBirth
-        let phoneNumbers = personArray[rowNumber].phoneNumbers
-        let emails = personArray[rowNumber].emails
-        let addresses = personArray[rowNumber].addresses
-        let contactImage = contactImagesDictionary[fullName]
+        if sortOrder == .byFirstName {
+            
+            personArray = personArray.sorted(by: { (a, b) -> Bool in
+                return a.firstName! < b.firstName!
+            })
+            fullName = "\(personArray[rowNumber].firstName!) \(personArray[rowNumber].lastName!)"
+           
+        } else if sortOrder == .byLastName {
+            
+            personArray = personArray.sorted(by: { (a, b) -> Bool in
+                return a.lastName! < b.lastName!
+            })
+             fullName = "\(personArray[rowNumber].lastName!) \(personArray[rowNumber].firstName!)"
+        }
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            fullName = "\(filteredPersonArray[rowNumber].firstName!) \(filteredPersonArray[rowNumber].lastName!)"
+            
+            firstName = filteredPersonArray[rowNumber].firstName!
+            lastName = filteredPersonArray[rowNumber].lastName!
+            dateOfBirth = filteredPersonArray[rowNumber].dateOfBirth!
+            phoneNumbers = filteredPersonArray[rowNumber].phoneNumbers!
+            emails = filteredPersonArray[rowNumber].emails!
+            addresses = filteredPersonArray[rowNumber].addresses!
+            contactImage = contactImagesDictionary[fullName]!
+        } else {
+            firstName = personArray[rowNumber].firstName!
+            lastName = personArray[rowNumber].lastName!
+            dateOfBirth = personArray[rowNumber].dateOfBirth!
+            phoneNumbers = personArray[rowNumber].phoneNumbers!
+            emails = personArray[rowNumber].emails!
+            addresses = personArray[rowNumber].addresses!
+            contactImage = contactImagesDictionary[fullName]!
+        }
         
         let profileVC = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
-        profileVC.initProfileView(firstName: firstName!, lastName: lastName!, dateOfBirth: dateOfBirth!, profileImage: contactImage!, phoneNumbers: phoneNumbers as! [String], emails: emails as! [String], addresses: addresses as! [String], profileType: .view)
+        profileVC.initProfileView(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth, profileImage: contactImage, phoneNumbers: phoneNumbers as! [String], emails: emails as! [String], addresses: addresses as! [String], profileType: .view)
         
         present(profileVC, animated: true, completion: nil)
     }
@@ -342,7 +413,7 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
             if arrayCount == 1 { //if sections doesn't contain values, delete section header
                 
                 self.removeContact(atIndexPath: indexPath)
-                self.fetchCoreData()
+                self.fetchCoreData(sortOrderType: sortOrder)
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 
@@ -355,7 +426,7 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 
                 self.removeContact(atIndexPath: indexPath)
-                self.fetchCoreData()
+                self.fetchCoreData(sortOrderType: sortOrder)
                 
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -412,6 +483,6 @@ extension ContactsVC: UISearchResultsUpdating {
             return fullName.contains(text.lowercased())
         })
         
-        tableView.reloadData()
+        contactsTableView.reloadData()
     }
 }
