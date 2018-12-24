@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 enum ProfileTypeEnum {
     case createNew
     case view

@@ -23,7 +23,7 @@
 		FEA6A3E721C9A1F9006410C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEA6A3E621C9A1F9006410C7 /* Assets.xcassets */; };
 		FEA6A3EA21C9A1F9006410C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEA6A3E821C9A1F9006410C7 /* LaunchScreen.storyboard */; };
 		FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */; };
-		FEA6A3F821CA5BE5006410C7 /* CreateProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F721CA5BE5006410C7 /* CreateProfileVC.swift */; };
+		FEA6A3F821CA5BE5006410C7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F721CA5BE5006410C7 /* ProfileVC.swift */; };
 		FEA6A3FA21CA5F3C006410C7 /* CreateProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,7 @@
 		FEA6A3E921C9A1F9006410C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEA6A3EB21C9A1F9006410C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCell.swift; sourceTree = "<group>"; };
-		FEA6A3F721CA5BE5006410C7 /* CreateProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileVC.swift; sourceTree = "<group>"; };
+		FEA6A3F721CA5BE5006410C7 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +81,60 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FE9E0AF421D06B0F00B39060 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FEA6A3DE21C9A1F6006410C7 /* ContactsVC.swift */,
+				FEA6A3F721CA5BE5006410C7 /* ProfileVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FE9E0AF521D06B1F00B39060 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FE9E0AF621D06B2D00B39060 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		FE9E0AFA21D06B5C00B39060 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */,
+				FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		FE9E0AFB21D06B6500B39060 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FE9E0AEC21D0057C00B39060 /* CustomUIView.swift */,
+				FE57A5E021CEEA8B00F22572 /* CustomUIViewTopRounded.swift */,
+				FE57A5DC21CEE83000F22572 /* CustomButton.swift */,
+				FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */,
+				FE9E0AEE21D00A4F00B39060 /* GradientView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FE9E0AFC21D06B7B00B39060 /* JsonAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				FE9E0AF221D067EC00B39060 /* NoSearches.json */,
+				FE9E0AF021D0230B00B39060 /* AddContactLoader.json */,
+			);
+			path = JsonAnimations;
+			sourceTree = "<group>";
+		};
 		FEA6A3D021C9A1F5006410C7 = {
 			isa = PBXGroup;
 			children = (
@@ -102,24 +156,18 @@
 		FEA6A3DB21C9A1F6006410C7 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				FEA6A3DC21C9A1F6006410C7 /* AppDelegate.swift */,
-				FEA6A3DE21C9A1F6006410C7 /* ContactsVC.swift */,
-				FE9E0AF021D0230B00B39060 /* AddContactLoader.json */,
-				FE9E0AF221D067EC00B39060 /* NoSearches.json */,
-				FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */,
-				FEA6A3F721CA5BE5006410C7 /* CreateProfileVC.swift */,
-				FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */,
-				FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */,
+				FE9E0AFC21D06B7B00B39060 /* JsonAnimations */,
+				FE9E0AF621D06B2D00B39060 /* Enums */,
+				FE9E0AF521D06B1F00B39060 /* Extensions */,
+				FE9E0AFA21D06B5C00B39060 /* Cells */,
+				FE9E0AFB21D06B6500B39060 /* Views */,
+				FE9E0AF421D06B0F00B39060 /* Controllers */,
 				FEA6A3E021C9A1F6006410C7 /* Main.storyboard */,
 				FEA6A3E621C9A1F9006410C7 /* Assets.xcassets */,
 				FEA6A3E821C9A1F9006410C7 /* LaunchScreen.storyboard */,
+				FEA6A3DC21C9A1F6006410C7 /* AppDelegate.swift */,
 				FEA6A3EB21C9A1F9006410C7 /* Info.plist */,
 				FEA6A3E321C9A1F6006410C7 /* Contacts.xcdatamodeld */,
-				FE57A5DC21CEE83000F22572 /* CustomButton.swift */,
-				FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */,
-				FE57A5E021CEEA8B00F22572 /* CustomUIViewTopRounded.swift */,
-				FE9E0AEC21D0057C00B39060 /* CustomUIView.swift */,
-				FE9E0AEE21D00A4F00B39060 /* GradientView.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -242,7 +290,7 @@
 				FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */,
 				FE9E0AEF21D00A4F00B39060 /* GradientView.swift in Sources */,
 				FEA6A3DF21C9A1F6006410C7 /* ContactsVC.swift in Sources */,
-				FEA6A3F821CA5BE5006410C7 /* CreateProfileVC.swift in Sources */,
+				FEA6A3F821CA5BE5006410C7 /* ProfileVC.swift in Sources */,
 				FE9E0AED21D0057C00B39060 /* CustomUIView.swift in Sources */,
 				FEA6A3DD21C9A1F6006410C7 /* AppDelegate.swift in Sources */,
 				FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */,
