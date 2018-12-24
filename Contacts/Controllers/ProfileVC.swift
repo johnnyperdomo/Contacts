@@ -23,6 +23,10 @@ class ProfileVC: UIViewController {
     private var isBackBtnHidden = Bool()
     private var isCancelBtnHidden = Bool()
     private var isChangeImageBtnHidden = Bool()
+    private var isFavoritesIconImgHidden = Bool()
+    private var isFavoritesIconShadowViewHidden = Bool()
+    private var isFavoritesLblHidden = Bool()
+    private var isFavoritesBtnHidden = Bool()
     
     private var firstNameString = String()
     private var lastNameString = String()
@@ -43,7 +47,8 @@ class ProfileVC: UIViewController {
     
     //MARK: IBOutlets -----------------------------------------------------------------------------
     
-    @IBOutlet weak private var createProfileTableView: UITableView!
+    @IBOutlet weak private var profileTableView: UITableView!
+    @IBOutlet weak private var backgroundTableview: CustomUIViewTopRounded!
     @IBOutlet weak private var firstNameTxtField: UITextField!
     @IBOutlet weak private var lastNameTxtField: UITextField!
     @IBOutlet weak private var dateOfBirthTextField: UITextField!
@@ -55,7 +60,12 @@ class ProfileVC: UIViewController {
     @IBOutlet weak private var backBtn: UIButton!
     @IBOutlet weak private var profileImg: UIImageView!
     @IBOutlet weak private var changeImageBtn: UIButton!
+    @IBOutlet weak private var favoritesLbl: UILabel!
+    @IBOutlet weak private var favoritesBtn: UIButton!
+    @IBOutlet weak private var favoritesIconImg: UIImageView!
+    @IBOutlet weak private var favoritesIconShadowView: CustomUIView!
     
+    @IBOutlet weak var backgroundTableViewTopContraint: NSLayoutConstraint!
     //MARK: IBActions -----------------------------------------------------------------------------
     
     @IBAction private func saveBtnPressed(_ sender: Any) {
@@ -116,6 +126,13 @@ class ProfileVC: UIViewController {
         cancelBtn.isHidden = false
         changeImageBtn.isHidden = false
         
+        favoritesBtn.isHidden = false
+        favoritesLbl.isHidden = false
+        favoritesIconImg.isHidden = true
+        favoritesIconShadowView.isHidden = true
+        
+        backgroundTableViewTopContraint.constant = 40
+        
         firstNameTxtField.text = firstNameString
         lastNameTxtField.text = lastNameString
         dateOfBirthTextField.text = dateOfBirthString
@@ -135,12 +152,24 @@ class ProfileVC: UIViewController {
         cancelBtn.isHidden = true
         changeImageBtn.isHidden = true
         
+        favoritesBtn.isHidden = true
+        favoritesLbl.isHidden = true
+        
+//        favoritesIconImg.isHidden = true
+//        favoritesIconShadowView.isHidden = true
+        
+        backgroundTableViewTopContraint.constant = -10
+        
         nameLbl.text = "\(firstNameString) \(lastNameString)"
-        dateOfBirthLbl.text = dateOfBirthString
+        dateOfBirthLbl.text = "Birthday: \(dateOfBirthString) 🎉"
     }
     
     @IBAction private func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction private func favoritesBtnPressed(_ sender: Any) {
+        
     }
     
     //MARK: VC Functions -----------------------------------------------------------------------------
@@ -166,6 +195,11 @@ class ProfileVC: UIViewController {
             self.isSaveBtnHidden = false
             self.isChangeImageBtnHidden = false
             
+            self.isFavoritesLblHidden = false
+            self.isFavoritesBtnHidden = false
+            self.isFavoritesIconImgHidden = true
+            self.isFavoritesIconShadowViewHidden = true
+            
             self.profileImage = profileImage
             
         case .view:
@@ -180,6 +214,9 @@ class ProfileVC: UIViewController {
             self.isSaveBtnHidden = true
             self.isChangeImageBtnHidden = true
             
+            self.isFavoritesLblHidden = true
+            self.isFavoritesBtnHidden = true
+            
             self.firstNameString = firstName
             self.lastNameString = lastName
             self.dateOfBirthString = dateOfBirth
@@ -192,8 +229,14 @@ class ProfileVC: UIViewController {
         lastNameTxtField.delegate = self
         dateOfBirthTextField.delegate = self
         
-        createProfileTableView.delegate = self
-        createProfileTableView.dataSource = self
+        profileTableView.delegate = self
+        profileTableView.dataSource = self
+        
+        if profileType == ProfileTypeEnum.createNew {
+            backgroundTableViewTopContraint.constant = 40
+        } else if profileType == ProfileTypeEnum.view {
+            backgroundTableViewTopContraint.constant = -10
+        }
         
         nameLbl.isHidden = isNameLblHidden
         dateOfBirthLbl.isHidden = isDateLblHidden
@@ -203,6 +246,11 @@ class ProfileVC: UIViewController {
         saveBtn.isHidden = isSaveBtnHidden
         modifyBtn.isHidden = isModifyBtnHidden
         changeImageBtn.isHidden = isChangeImageBtnHidden
+        
+        favoritesBtn.isHidden = isFavoritesBtnHidden
+        favoritesLbl.isHidden = isFavoritesLblHidden
+        favoritesIconImg.isHidden = isFavoritesIconImgHidden
+        favoritesIconShadowView.isHidden = isFavoritesIconShadowViewHidden
         
         nameLbl.text = "\(firstNameString) \(lastNameString)"
         dateOfBirthLbl.text = "Birthday: \(dateOfBirthString) 🎉"
@@ -218,7 +266,7 @@ class ProfileVC: UIViewController {
             userDataArray[section] = [text]
         }
         
-        createProfileTableView.reloadData()
+        profileTableView.reloadData()
     }
     
     @objc private func callAlertActionForUserData(button: UIButton) {
@@ -368,7 +416,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = createProfileTableView.dequeueReusableCell(withIdentifier: "createProfileCell", for: indexPath) as? CreateProfileCell else { return UITableViewCell() }
+        guard let cell = profileTableView.dequeueReusableCell(withIdentifier: "createProfileCell", for: indexPath) as? CreateProfileCell else { return UITableViewCell() }
         
         
         let value = userDataArray[indexPath.section]

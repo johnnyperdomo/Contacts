@@ -25,6 +25,8 @@
 		FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */; };
 		FEA6A3F821CA5BE5006410C7 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F721CA5BE5006410C7 /* ProfileVC.swift */; };
 		FEA6A3FA21CA5F3C006410C7 /* CreateProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */; };
+		FEF9882921D11E150095F28A /* SortOrderEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF9882821D11E150095F28A /* SortOrderEnum.swift */; };
+		FEF9882B21D11EB40095F28A /* IsFavoriteEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF9882A21D11EB40095F28A /* IsFavoriteEnum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCell.swift; sourceTree = "<group>"; };
 		FEA6A3F721CA5BE5006410C7 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileCell.swift; sourceTree = "<group>"; };
+		FEF9882821D11E150095F28A /* SortOrderEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderEnum.swift; sourceTree = "<group>"; };
+		FEF9882A21D11EB40095F28A /* IsFavoriteEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsFavoriteEnum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */,
+				FEF9882821D11E150095F28A /* SortOrderEnum.swift */,
+				FEF9882A21D11EB40095F28A /* IsFavoriteEnum.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -292,9 +298,11 @@
 				FEA6A3DF21C9A1F6006410C7 /* ContactsVC.swift in Sources */,
 				FEA6A3F821CA5BE5006410C7 /* ProfileVC.swift in Sources */,
 				FE9E0AED21D0057C00B39060 /* CustomUIView.swift in Sources */,
+				FEF9882921D11E150095F28A /* SortOrderEnum.swift in Sources */,
 				FEA6A3DD21C9A1F6006410C7 /* AppDelegate.swift in Sources */,
 				FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */,
 				FEA6A3E521C9A1F6006410C7 /* Contacts.xcdatamodeld in Sources */,
+				FEF9882B21D11EB40095F28A /* IsFavoriteEnum.swift in Sources */,
 				FE57A5E121CEEA8B00F22572 /* CustomUIViewTopRounded.swift in Sources */,
 				FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */,
 				FEA6A3FA21CA5F3C006410C7 /* CreateProfileCell.swift in Sources */,
