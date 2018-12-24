@@ -98,16 +98,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a contact" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjT-LV-B4j">
+                                <rect key="frame" x="25" y="138" width="364" height="30.5"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="DEh-qw-jgr" customClass="LOTAnimationView">
+                                <rect key="frame" x="25" y="188.5" width="364" height="444.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Mg-ac-qhB" customClass="CustomUIView" customModule="Contacts" customModuleProvider="target">
-                                <rect key="frame" x="324" y="723" width="70" height="70"/>
+                                <rect key="frame" x="334" y="733" width="60" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="AjE-TL-3nM"/>
-                                    <constraint firstAttribute="width" constant="70" id="uWF-Ya-0d3"/>
+                                    <constraint firstAttribute="height" constant="60" id="AjE-TL-3nM"/>
+                                    <constraint firstAttribute="width" constant="60" id="uWF-Ya-0d3"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rounded">
-                                        <real key="value" value="35"/>
+                                        <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                         <color key="value" red="0.86666666670000003" green="0.14117647059999999" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -124,10 +134,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgc-KS-95W" customClass="CustomButton" customModule="Contacts" customModuleProvider="target">
-                                <rect key="frame" x="324" y="723" width="70" height="70"/>
+                                <rect key="frame" x="334" y="733" width="60" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="Pgb-fd-M6B"/>
-                                    <constraint firstAttribute="width" constant="70" id="QNp-J4-kaQ"/>
+                                    <constraint firstAttribute="height" constant="60" id="Pgb-fd-M6B"/>
+                                    <constraint firstAttribute="width" constant="60" id="QNp-J4-kaQ"/>
                                 </constraints>
                                 <state key="normal" image="createContactBtn"/>
                                 <userDefinedRuntimeAttributes>
@@ -138,7 +148,7 @@
                                         <color key="value" red="0.86666666670000003" green="0.14117647059999999" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="rounded">
-                                        <real key="value" value="35"/>
+                                        <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -148,20 +158,29 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="kjT-LV-B4j" firstAttribute="top" secondItem="vjh-Io-saJ" secondAttribute="top" constant="50" id="2Xl-oH-MSw"/>
                             <constraint firstItem="vjh-Io-saJ" firstAttribute="trailing" secondItem="rBE-fT-8af" secondAttribute="trailing" id="72L-Nb-Bqq"/>
                             <constraint firstItem="vjh-Io-saJ" firstAttribute="trailing" secondItem="6Mg-ac-qhB" secondAttribute="trailing" constant="20" id="AKz-cL-FWa"/>
                             <constraint firstItem="vjh-Io-saJ" firstAttribute="bottom" secondItem="rBE-fT-8af" secondAttribute="bottom" id="Aif-Fj-5hT"/>
+                            <constraint firstItem="DEh-qw-jgr" firstAttribute="top" secondItem="kjT-LV-B4j" secondAttribute="bottom" constant="20" id="Bra-8u-xU5"/>
+                            <constraint firstItem="6Mg-ac-qhB" firstAttribute="top" secondItem="DEh-qw-jgr" secondAttribute="bottom" constant="100" id="Der-mZ-KID"/>
                             <constraint firstItem="vjh-Io-saJ" firstAttribute="bottom" secondItem="6Mg-ac-qhB" secondAttribute="bottom" constant="20" id="Ir7-KH-deL"/>
                             <constraint firstItem="vjh-Io-saJ" firstAttribute="bottom" secondItem="Mgc-KS-95W" secondAttribute="bottom" constant="20" id="LN6-nb-tg2"/>
                             <constraint firstItem="rBE-fT-8af" firstAttribute="top" secondItem="vjh-Io-saJ" secondAttribute="top" id="NpQ-MU-M53"/>
+                            <constraint firstItem="DEh-qw-jgr" firstAttribute="leading" secondItem="vjh-Io-saJ" secondAttribute="leading" constant="25" id="TtW-C8-2kd"/>
+                            <constraint firstItem="kjT-LV-B4j" firstAttribute="trailing" secondItem="DEh-qw-jgr" secondAttribute="trailing" id="XUx-vA-or9"/>
+                            <constraint firstItem="kjT-LV-B4j" firstAttribute="leading" secondItem="DEh-qw-jgr" secondAttribute="leading" id="anx-Bi-eV8"/>
                             <constraint firstItem="rBE-fT-8af" firstAttribute="leading" secondItem="vjh-Io-saJ" secondAttribute="leading" id="fPt-Ed-Auw"/>
                             <constraint firstItem="vjh-Io-saJ" firstAttribute="trailing" secondItem="Mgc-KS-95W" secondAttribute="trailing" constant="20" id="ijO-FK-3Cc"/>
+                            <constraint firstItem="vjh-Io-saJ" firstAttribute="trailing" secondItem="DEh-qw-jgr" secondAttribute="trailing" constant="25" id="roa-kq-YT1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vjh-Io-saJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Contacts" id="B4P-Rl-Twq"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="animationView" destination="DEh-qw-jgr" id="e6l-gq-sEX"/>
+                        <outlet property="animationViewLbl" destination="kjT-LV-B4j" id="ord-GD-gtL"/>
                         <outlet property="tableView" destination="rBE-fT-8af" id="TEH-OT-00A"/>
                     </connections>
                 </viewController>

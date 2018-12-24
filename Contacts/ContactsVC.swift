@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Lottie
 
 class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -17,10 +18,13 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.dataSource = self
         fetchCoreData()
         setUpNavBar()
-
     }
     
     let searchController = UISearchController(searchResultsController: nil)
+    
+    @IBOutlet weak var animationView: LOTAnimationView!
+    @IBOutlet weak var animationViewLbl: UILabel!
+    
     
     func setUpNavBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -55,7 +59,7 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             print(fullName)
             return fullName.contains(text.lowercased())
         })
-
+        
         tableView.reloadData()
         
     }
@@ -108,6 +112,38 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         present(profileVC, animated: true, completion: nil)
     }
     
+    
+     func startAnimationLoaderForCreateContact() {
+        animationView.setAnimation(named: "AddContactLoader")
+        animationView.loopAnimation = true
+        animationView.isHidden = false
+        animationViewLbl.text = "No Contacts Yet. Add your first contact by tapping the button below."
+        animationViewLbl.isHidden = false
+        animationView.play()
+        
+        navigationItem.searchController = nil
+        tableView.isHidden = true
+    }
+    
+    private func stopAnimationLoader() {
+        animationView.isHidden = true
+        animationViewLbl.isHidden = true
+        animationView.stop()
+        navigationItem.searchController = searchController
+        tableView.isHidden = false
+    }
+    
+    func startAnimationLoaderNoSearches() {
+        animationView.setAnimation(named: "NoSearches")
+        animationView.loopAnimation = true
+        animationView.isHidden = false
+        animationViewLbl.text = "Oops, can't seem to find any matches."
+        animationViewLbl.isHidden = false
+        animationView.play()
+        
+        tableView.isHidden = true
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         var count = Int()
@@ -144,6 +180,13 @@ class ContactsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             
             if complete {
                 print("got data")
+                
+                if personArray.isEmpty {
+                    startAnimationLoaderForCreateContact()
+                } else {
+                    stopAnimationLoader()
+                }
+                
                 
                 personArray = personArray.sorted(by: { (a, b) -> Bool in
                     return a.firstName! < b.firstName!
@@ -345,5 +388,16 @@ extension ContactsVC: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         filterContacts(text: searchController.searchBar.text!)
+        
+       if searchController.isActive && searchController.searchBar.text != "" {
+            if filteredPersonArray.isEmpty {
+                startAnimationLoaderNoSearches()
+            } else {
+                stopAnimationLoader()
+            }
+        
+       } else {
+        stopAnimationLoader()
+        }
     }
 }
