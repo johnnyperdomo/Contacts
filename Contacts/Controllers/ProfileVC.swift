@@ -38,7 +38,10 @@ class ProfileVC: UIViewController {
     private var addressArray = [String]()
     
     private var userDataArray: [Int : [String]] = [0: [], 1: [], 2: []] //to store user data -> 0: phone, 1: email, 2: address
+    
     private var profileType: ProfileTypeEnum!
+    private var isFavorite: IsFavoriteEnum!
+    private var initialIsFavoriteValue: IsFavoriteEnum!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +77,7 @@ class ProfileVC: UIViewController {
             
             if firstNameTxtField.text != "" && lastNameTxtField.text != "" && dateOfBirthTextField.text != "" && (userDataArray[0]?.count)! >= 1 && (userDataArray[1]?.count)! >= 1 {
                 
-                saveProfile(firstName: (firstNameTxtField.text?.capitalized)!, lastName: (lastNameTxtField.text?.capitalized)!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: userDataArray[0]!, emails: userDataArray[1]!, addresses: userDataArray[2]!, profileImage: profileImg.image!) { (complete) in
+                saveProfile(firstName: (firstNameTxtField.text?.capitalized)!, lastName: (lastNameTxtField.text?.capitalized)!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: userDataArray[0]!, emails: userDataArray[1]!, addresses: userDataArray[2]!, profileImage: profileImg.image!, isFavoritePerson: isFavorite) { (complete) in
                     
                     if complete {
                         guard let contactsVC = storyboard?.instantiateViewController(withIdentifier: "ContactsVC") else { return }
@@ -90,7 +93,15 @@ class ProfileVC: UIViewController {
             
         } else {
             
-            modifyProfileInfo(searchFirstName: firstNameString, searchLastName: lastNameString, searchDateOfBirth: dateOfBirthString, newFirstName: firstNameTxtField.text!, newLastName: lastNameTxtField.text!, newDateOfBirth: dateOfBirthTextField.text!, newProfileImage: profileImg.image!, newPhonenumbers: userDataArray[0]!, newEmails: userDataArray[1]!, newAddresses: userDataArray[2]!) { (complete) in
+            var isFavoriteBool = Bool()
+            
+            if isFavorite == .no {
+                isFavoriteBool = false
+            } else if isFavorite == .yes {
+                isFavoriteBool = true
+            }
+            
+            modifyProfileInfo(searchFirstName: firstNameString, searchLastName: lastNameString, searchDateOfBirth: dateOfBirthString, newFirstName: firstNameTxtField.text!, newLastName: lastNameTxtField.text!, newDateOfBirth: dateOfBirthTextField.text!, newProfileImage: profileImg.image!, newPhonenumbers: userDataArray[0]!, newEmails: userDataArray[1]!, newAddresses: userDataArray[2]!, newIsFavoritePerson: isFavoriteBool ) { (complete) in
             
                 if complete {
                     guard let contactsVC = storyboard?.instantiateViewController(withIdentifier: "ContactsVC") else { return }
@@ -131,6 +142,17 @@ class ProfileVC: UIViewController {
         favoritesIconImg.isHidden = true
         favoritesIconShadowView.isHidden = true
         
+        if initialIsFavoriteValue == .no {
+  
+            favoritesBtn.setImage(UIImage(named: "starUnfilled"), for: .normal)
+            favoritesLbl.text = "Add to favorites"
+            
+        } else if initialIsFavoriteValue == .yes {
+            
+            favoritesBtn.setImage(UIImage(named: "starFilled"), for: .normal)
+            favoritesLbl.text = "Remove from favorites"
+        }
+        
         backgroundTableViewTopContraint.constant = 40
         
         firstNameTxtField.text = firstNameString
@@ -155,8 +177,24 @@ class ProfileVC: UIViewController {
         favoritesBtn.isHidden = true
         favoritesLbl.isHidden = true
         
-//        favoritesIconImg.isHidden = true
-//        favoritesIconShadowView.isHidden = true
+        if initialIsFavoriteValue == .no {
+            isFavorite = initialIsFavoriteValue
+            
+            favoritesIconImg.isHidden = true
+            favoritesIconShadowView.isHidden = true
+            
+            favoritesBtn.setImage(UIImage(named: "starUnfilled"), for: .normal)
+            favoritesLbl.text = "Add to favorites"
+            
+        } else if initialIsFavoriteValue == .yes {
+            isFavorite = initialIsFavoriteValue
+            
+            favoritesIconImg.isHidden = false
+            favoritesIconShadowView.isHidden = false
+            
+            favoritesBtn.setImage(UIImage(named: "starFilled"), for: .normal)
+            favoritesLbl.text = "Remove from favorites"
+        }
         
         backgroundTableViewTopContraint.constant = -10
         
@@ -170,17 +208,20 @@ class ProfileVC: UIViewController {
     
     @IBAction private func favoritesBtnPressed(_ sender: Any) {
         
+        addFavoritePerson(isFavoritePerson: isFavorite)
     }
     
     //MARK: VC Functions -----------------------------------------------------------------------------
     
-    func initProfileView(firstName: String = "", lastName: String = "", dateOfBirth: String = "", profileImage: UIImage = UIImage(named: "personPlaceholder")!, phoneNumbers: [String] = [], emails: [String] = [], addresses: [String] = [], profileType: ProfileTypeEnum) {
+    func initProfileView(firstName: String = "", lastName: String = "", dateOfBirth: String = "", profileImage: UIImage = UIImage(named: "personPlaceholder")!, phoneNumbers: [String] = [], emails: [String] = [], addresses: [String] = [], profileType: ProfileTypeEnum, isFavorite: IsFavoriteEnum = .no) {
         
         userDataArray[0] = phoneNumbers
         userDataArray[1] = emails
         userDataArray[2] = addresses
         
         self.profileType = profileType
+        self.isFavorite = isFavorite
+        self.initialIsFavoriteValue = isFavorite
         
         switch profileType {
         case .createNew:
@@ -216,6 +257,15 @@ class ProfileVC: UIViewController {
             
             self.isFavoritesLblHidden = true
             self.isFavoritesBtnHidden = true
+            
+            switch isFavorite {
+            case .no:
+                self.isFavoritesIconImgHidden = true
+                self.isFavoritesIconShadowViewHidden = true
+            case .yes:
+                self.isFavoritesIconImgHidden = false
+                self.isFavoritesIconShadowViewHidden = false
+            }
             
             self.firstNameString = firstName
             self.lastNameString = lastName
@@ -293,19 +343,41 @@ class ProfileVC: UIViewController {
         
         present(alert, animated: true)
     }
+    
+    private func addFavoritePerson(isFavoritePerson: IsFavoriteEnum) {
+        
+        switch isFavoritePerson {
+        case .no:
+            isFavorite = .yes
+            favoritesBtn.setImage(UIImage(named: "starFilled"), for: .normal)
+            favoritesLbl.text = "Remove from favorites"
+        case .yes:
+            isFavorite = .no
+            favoritesBtn.setImage(UIImage(named: "starUnfilled"), for: .normal)
+            favoritesLbl.text = "Add to favorites"
+        }
+    }
 }
 
 //MARK: Coredata ----------------------------------------------------------------------------
 
 extension ProfileVC {
     
-    private func saveProfile(firstName: String, lastName: String, dateOfBirth: String, phoneNumbers: [String], emails: [String], addresses: [String], profileImage: UIImage, completion: (_ complete: Bool) -> ()) {
+    private func saveProfile(firstName: String, lastName: String, dateOfBirth: String, phoneNumbers: [String], emails: [String], addresses: [String], profileImage: UIImage, isFavoritePerson: IsFavoriteEnum, completion: (_ complete: Bool) -> ()) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let person = Person(context: managedContext)
         
         let profileImageData: Data = profileImage.pngData()!
+        
+        var isFavoriteBool = Bool()
+        
+        if isFavoritePerson == .no {
+            isFavoriteBool = false
+        } else if isFavoritePerson == .yes {
+            isFavoriteBool = true
+        }
         
         person.firstName = firstName
         person.lastName = lastName
@@ -314,6 +386,7 @@ extension ProfileVC {
         person.phoneNumbers = phoneNumbers as NSObject
         person.emails = emails as NSObject
         person.addresses = addresses as NSObject
+        person.isFavorite = isFavoriteBool
         
         do {
             try managedContext.save()
@@ -325,7 +398,7 @@ extension ProfileVC {
         }
     }
     
-    private func modifyProfileInfo(searchFirstName: String, searchLastName: String, searchDateOfBirth: String, newFirstName: String, newLastName: String, newDateOfBirth: String, newProfileImage: UIImage, newPhonenumbers: [String], newEmails: [String], newAddresses: [String], completion: (_ complete: Bool) -> ()) {
+    private func modifyProfileInfo(searchFirstName: String, searchLastName: String, searchDateOfBirth: String, newFirstName: String, newLastName: String, newDateOfBirth: String, newProfileImage: UIImage, newPhonenumbers: [String], newEmails: [String], newAddresses: [String], newIsFavoritePerson: Bool,  completion: (_ complete: Bool) -> ()) {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -350,6 +423,7 @@ extension ProfileVC {
                             result.setValue(newPhonenumbers, forKey: "phoneNumbers")
                             result.setValue(newEmails, forKey: "emails")
                             result.setValue(newAddresses, forKey: "addresses")
+                            result.setValue(newIsFavoritePerson, forKey: "isFavorite")
                             
                             do {
                                 try managedContext.save()

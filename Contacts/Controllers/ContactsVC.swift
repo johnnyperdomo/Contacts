@@ -25,10 +25,12 @@ class ContactsVC: UIViewController {
     private var personArray: [Person] = []
     private var filteredPersonArray: [Person] = []
     
-    private var contactNamesDictionary = [String: [String]]()
-    private var contactImagesDictionary = [String: UIImage]()
+    private var contactNamesDictionary = [String: [String]]() //i.e. "A" : ["Anakin Skywalker" , "Astro Boy"], "C" : ["Charlie Brown"], "J" : ["Johnny Perdomo", "Jason Vorhees", "Julia Child"]
+    private var contactImagesDictionary = [String: UIImage]() //i.e. "Johnny Perdomo" : <<Picture 27, User Picture >>
+    private var contactFavoritesDictionary = [String: Bool]() //i.e "Ross Geller" : True, "Joey Tribiani" : False
     
     private var sortOrder: SortOrderEnum = .byFirstName
+    private var sortImage: UIImage = UIImage(named: "sortIconFirstName")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +63,7 @@ class ContactsVC: UIViewController {
         let favoriteBtnItem = UIBarButtonItem(image: UIImage(named: "starUnfilled"), style: .plain, target: self, action: #selector(showFavoriteContacts))
         favoriteBtnItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
-        let sortBtnItem = UIBarButtonItem(image: UIImage(named: "sortIcon"), style: .plain, target: self, action: #selector(sortContactsByType))
+        let sortBtnItem = UIBarButtonItem(image: sortImage, style: .plain, target: self, action: #selector(sortContactsByType))
         sortBtnItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         self.navigationItem.searchController = searchController
@@ -135,18 +137,17 @@ class ContactsVC: UIViewController {
         switch sortOrder {
         case .byFirstName:
             sortOrder = .byLastName
-            print("sort order by \(sortOrder)")
+            sortImage = UIImage(named: "sortIconLastName")!
+            setUpNavBar()
             fetchCoreData(sortOrderType: sortOrder)
             contactsTableView.reloadData()
-            print(contactNamesDictionary)
         case .byLastName:
             sortOrder = .byFirstName
-            print("sort order by \(sortOrder)")
+            sortImage = UIImage(named: "sortIconFirstName")!
+            setUpNavBar()
             fetchCoreData(sortOrderType: sortOrder)
             contactsTableView.reloadData()
-            print(contactNamesDictionary)
         }
-        
     }
 }
 
@@ -186,12 +187,15 @@ extension ContactsVC {
                     
                    
                     let image = UIImage(data: i.profileImage!)
+                    let isFavorite = i.isFavorite
                     
                     namesArray.append(fullName)
                     contactImagesDictionary[fullName] = image
+                    contactFavoritesDictionary[fullName] = isFavorite
                 }
                 createNameDictionary()
-                print(namesArray)
+             //   print(namesArray)
+                print(contactFavoritesDictionary)
             } else {
                 print("error fetched core data")
             }
@@ -289,9 +293,13 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
         
         var attributedText = NSAttributedString()
         var contactImage = UIImage()
+        var isFavoriteBool = Bool()
         
         if searchController.isActive && searchController.searchBar.text != "" {
             if let firstName = filteredPersonArray[indexPath.row].firstName?.capitalized, let lastName = filteredPersonArray[indexPath.row].lastName?.capitalized, let profileImage = filteredPersonArray[indexPath.row].profileImage {
+                
+                let favoriteBool = filteredPersonArray[indexPath.row].isFavorite
+                
                 let text = "\(firstName) \(lastName)"
                 let image = UIImage(data: profileImage)
                 
@@ -303,6 +311,7 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
                 
                 attributedText = attributedString
                 contactImage = image!
+                isFavoriteBool = favoriteBool
             }
             
         } else {
@@ -317,12 +326,15 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
                 attributedText = attributedString
                 
                 let image = contactImagesDictionary[text]
+                let favoriteBool = contactFavoritesDictionary[text]
                 
                 contactImage = image!
+                isFavoriteBool = favoriteBool!
             }
         }
         
         cell.contactImage.image = contactImage
+        cell.isFavoriteImage.isHidden = !(isFavoriteBool)
         cell.contactName.attributedText = attributedText
         
         return cell
@@ -350,6 +362,9 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
         var emails = NSObject()
         var addresses = NSObject()
         var contactImage = UIImage()
+        var favorite = Bool()
+        
+        var isFavorite: IsFavoriteEnum!
         
         if sortOrder == .byFirstName {
             
@@ -376,6 +391,7 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
             emails = filteredPersonArray[rowNumber].emails!
             addresses = filteredPersonArray[rowNumber].addresses!
             contactImage = contactImagesDictionary[fullName]!
+            favorite = contactFavoritesDictionary[fullName]!
         } else {
             firstName = personArray[rowNumber].firstName!
             lastName = personArray[rowNumber].lastName!
@@ -384,10 +400,17 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
             emails = personArray[rowNumber].emails!
             addresses = personArray[rowNumber].addresses!
             contactImage = contactImagesDictionary[fullName]!
+            favorite = contactFavoritesDictionary[fullName]!
+        }
+        
+        if favorite == true {
+            isFavorite = .yes
+        } else if favorite == false {
+            isFavorite = .no
         }
         
         let profileVC = self.storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
-        profileVC.initProfileView(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth, profileImage: contactImage, phoneNumbers: phoneNumbers as! [String], emails: emails as! [String], addresses: addresses as! [String], profileType: .view)
+        profileVC.initProfileView(firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth, profileImage: contactImage, phoneNumbers: phoneNumbers as! [String], emails: emails as! [String], addresses: addresses as! [String], profileType: .view, isFavorite: isFavorite)
         
         present(profileVC, animated: true, completion: nil)
     }

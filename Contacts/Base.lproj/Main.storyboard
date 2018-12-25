@@ -30,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIe-uj-qve">
-                                                    <rect key="frame" x="90" y="26" width="284" height="21"/>
+                                                    <rect key="frame" x="90" y="26" width="269" height="21"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -77,17 +77,26 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="starFilled" translatesAutoresizingMaskIntoConstraints="NO" id="wcS-cl-MOz">
+                                                    <rect key="frame" x="369" y="24" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="Clz-S4-rjS"/>
+                                                        <constraint firstAttribute="width" constant="25" id="POc-Lw-XBW"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fIe-uj-qve" secondAttribute="bottom" constant="16" id="1h4-dJ-ily"/>
                                                 <constraint firstItem="iGg-Zz-stg" firstAttribute="height" secondItem="GQa-9w-dJE" secondAttribute="height" id="2dX-ee-bfd"/>
+                                                <constraint firstItem="wcS-cl-MOz" firstAttribute="centerY" secondItem="fIe-uj-qve" secondAttribute="centerY" id="91C-qo-gYt"/>
+                                                <constraint firstItem="wcS-cl-MOz" firstAttribute="leading" secondItem="fIe-uj-qve" secondAttribute="trailing" constant="10" id="ESx-sg-OYE"/>
                                                 <constraint firstItem="fIe-uj-qve" firstAttribute="leading" secondItem="GQa-9w-dJE" secondAttribute="trailing" constant="20" id="JOW-no-nAV"/>
                                                 <constraint firstItem="fIe-uj-qve" firstAttribute="top" secondItem="ldZ-i3-zBB" secondAttribute="topMargin" constant="15" id="KCt-5G-uQa"/>
                                                 <constraint firstItem="GQa-9w-dJE" firstAttribute="leading" secondItem="ldZ-i3-zBB" secondAttribute="leadingMargin" constant="10" id="QSa-Bq-d3B"/>
                                                 <constraint firstItem="iGg-Zz-stg" firstAttribute="centerY" secondItem="ldZ-i3-zBB" secondAttribute="centerY" id="ett-io-0BT"/>
+                                                <constraint firstAttribute="trailing" secondItem="wcS-cl-MOz" secondAttribute="trailing" constant="20" id="owE-dy-t3i"/>
                                                 <constraint firstItem="iGg-Zz-stg" firstAttribute="width" secondItem="GQa-9w-dJE" secondAttribute="width" id="qQV-Fj-zke"/>
                                                 <constraint firstItem="iGg-Zz-stg" firstAttribute="leading" secondItem="ldZ-i3-zBB" secondAttribute="leadingMargin" constant="10" id="qkj-65-aju"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="fIe-uj-qve" secondAttribute="trailing" constant="20" id="tT3-VM-yHH"/>
                                                 <constraint firstItem="GQa-9w-dJE" firstAttribute="centerY" secondItem="ldZ-i3-zBB" secondAttribute="centerY" id="vfm-AQ-zMd"/>
                                                 <constraint firstItem="fIe-uj-qve" firstAttribute="leading" secondItem="iGg-Zz-stg" secondAttribute="trailing" constant="20" id="yxd-l9-3iO"/>
                                             </constraints>
@@ -95,6 +104,7 @@
                                         <connections>
                                             <outlet property="contactImage" destination="iGg-Zz-stg" id="9Ve-Xl-hoQ"/>
                                             <outlet property="contactName" destination="fIe-uj-qve" id="5Kc-oK-DZf"/>
+                                            <outlet property="isFavoriteImage" destination="wcS-cl-MOz" id="J9E-jF-qTl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -558,6 +568,7 @@
         <image name="modifyBtn" width="96" height="96"/>
         <image name="personPlaceholder" width="1524" height="976"/>
         <image name="saveBtn" width="96" height="96"/>
+        <image name="starFilled" width="96" height="96"/>
         <image name="starIcon" width="180" height="180"/>
         <image name="starUnfilled" width="96" height="96"/>
     </resources>
