@@ -27,6 +27,7 @@
 		FEA6A3FA21CA5F3C006410C7 /* CreateProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */; };
 		FEF9882921D11E150095F28A /* SortOrderEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF9882821D11E150095F28A /* SortOrderEnum.swift */; };
 		FEF9882B21D11EB40095F28A /* IsFavoriteEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF9882A21D11EB40095F28A /* IsFavoriteEnum.swift */; };
+		FEF9882D21D1BD9A0095F28A /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = FEF9882C21D1BD9A0095F28A /* Star.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileCell.swift; sourceTree = "<group>"; };
 		FEF9882821D11E150095F28A /* SortOrderEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderEnum.swift; sourceTree = "<group>"; };
 		FEF9882A21D11EB40095F28A /* IsFavoriteEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsFavoriteEnum.swift; sourceTree = "<group>"; };
+		FEF9882C21D1BD9A0095F28A /* Star.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Star.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				FE9E0AF221D067EC00B39060 /* NoSearches.json */,
+				FEF9882C21D1BD9A0095F28A /* Star.json */,
 				FE9E0AF021D0230B00B39060 /* AddContactLoader.json */,
 			);
 			path = JsonAnimations;
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEA6A3EA21C9A1F9006410C7 /* LaunchScreen.storyboard in Resources */,
+				FEF9882D21D1BD9A0095F28A /* Star.json in Resources */,
 				FEA6A3E721C9A1F9006410C7 /* Assets.xcassets in Resources */,
 				FEA6A3E221C9A1F6006410C7 /* Main.storyboard in Resources */,
 				FE9E0AF321D067EC00B39060 /* NoSearches.json in Resources */,

@@ -345,7 +345,7 @@ class ProfileVC: UIViewController {
     }
     
     private func addFavoritePerson(isFavoritePerson: IsFavoriteEnum) {
-        
+
         switch isFavoritePerson {
         case .no:
             isFavorite = .yes

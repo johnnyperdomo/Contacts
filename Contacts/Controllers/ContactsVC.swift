@@ -24,6 +24,7 @@ class ContactsVC: UIViewController {
     
     private var personArray: [Person] = []
     private var filteredPersonArray: [Person] = []
+    private var onlyFavoriteContactsArray: [Person] = []
     
     private var contactNamesDictionary = [String: [String]]() //i.e. "A" : ["Anakin Skywalker" , "Astro Boy"], "C" : ["Charlie Brown"], "J" : ["Johnny Perdomo", "Jason Vorhees", "Julia Child"]
     private var contactImagesDictionary = [String: UIImage]() //i.e. "Johnny Perdomo" : <<Picture 27, User Picture >>
@@ -32,12 +33,17 @@ class ContactsVC: UIViewController {
     private var sortOrder: SortOrderEnum = .byFirstName
     private var sortImage: UIImage = UIImage(named: "sortIconFirstName")!
     
+    private var showFavoriteContactsOnly: IsFavoriteEnum = .no
+    private var showFavoriteContactStarImage: UIImage = UIImage(named: "starUnfilled")!
+    
+    private var navBarTitle: String = "All Contacts"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         contactsTableView.delegate = self
         contactsTableView.dataSource = self
         setUpNavBar()
-        fetchCoreData(sortOrderType: sortOrder)
+        fetchCoreData(sortOrderType: sortOrder, isFavorite: showFavoriteContactsOnly)
     }
     
     //MARK: IBOutlets -----------------------------------------------------------------------------
@@ -58,9 +64,9 @@ class ContactsVC: UIViewController {
 
     private func setUpNavBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.title = "Contacts"
+        self.title = navBarTitle
         
-        let favoriteBtnItem = UIBarButtonItem(image: UIImage(named: "starUnfilled"), style: .plain, target: self, action: #selector(showFavoriteContacts))
+        let favoriteBtnItem = UIBarButtonItem(image: showFavoriteContactStarImage, style: .plain, target: self, action: #selector(showFavoriteContacts))
         favoriteBtnItem.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         let sortBtnItem = UIBarButtonItem(image: sortImage, style: .plain, target: self, action: #selector(sortContactsByType))
@@ -89,14 +95,6 @@ class ContactsVC: UIViewController {
         contactsTableView.isHidden = true
     }
     
-    private func stopAnimationLoader() {
-        animationView.isHidden = true
-        animationViewLbl.isHidden = true
-        animationView.stop()
-        navigationItem.searchController = searchController
-        contactsTableView.isHidden = false
-    }
-    
     private func startAnimationLoaderNoSearches() {
         animationView.setAnimation(named: "NoSearches")
         animationView.loopAnimation = true
@@ -106,6 +104,26 @@ class ContactsVC: UIViewController {
         animationView.play()
         
         contactsTableView.isHidden = true
+    }
+    
+    private func startAnimationLoaderNoFavorites() {
+        animationView.setAnimation(named: "Star")
+        animationView.loopAnimation = true
+        animationView.isHidden = false
+        animationViewLbl.text = "Oops, you don't have any favorite contacts yet. Add your first by tapping on the star while editing a person's contact information."
+        animationViewLbl.isHidden = false
+        animationView.play()
+        
+        navigationItem.searchController = nil
+        contactsTableView.isHidden = true
+    }
+    
+    private func stopAnimationLoader() {
+        animationView.isHidden = true
+        animationViewLbl.isHidden = true
+        animationView.stop()
+        navigationItem.searchController = searchController
+        contactsTableView.isHidden = false
     }
     
     private func createNameDictionary() {
@@ -129,7 +147,24 @@ class ContactsVC: UIViewController {
     }
     
     @objc private func showFavoriteContacts() {
-        print("favorites Contact Btn pressed")
+        
+        switch showFavoriteContactsOnly {
+        case .no:
+            showFavoriteContactsOnly = .yes
+            navBarTitle = "Favorites"
+            showFavoriteContactStarImage = UIImage(named: "starFilled")!
+            setUpNavBar()
+            fetchCoreData(sortOrderType: sortOrder, isFavorite: showFavoriteContactsOnly)
+            contactsTableView.reloadData()
+        case .yes:
+            showFavoriteContactsOnly = .no
+            navBarTitle = "All Contacts"
+            showFavoriteContactStarImage = UIImage(named: "starUnfilled")!
+            setUpNavBar()
+            fetchCoreData(sortOrderType: sortOrder, isFavorite: showFavoriteContactsOnly)
+            contactsTableView.reloadData()
+        }
+        
     }
     
     @objc private func sortContactsByType() {
@@ -139,13 +174,13 @@ class ContactsVC: UIViewController {
             sortOrder = .byLastName
             sortImage = UIImage(named: "sortIconLastName")!
             setUpNavBar()
-            fetchCoreData(sortOrderType: sortOrder)
+            fetchCoreData(sortOrderType: sortOrder, isFavorite: showFavoriteContactsOnly)
             contactsTableView.reloadData()
         case .byLastName:
             sortOrder = .byFirstName
             sortImage = UIImage(named: "sortIconFirstName")!
             setUpNavBar()
-            fetchCoreData(sortOrderType: sortOrder)
+            fetchCoreData(sortOrderType: sortOrder, isFavorite: showFavoriteContactsOnly)
             contactsTableView.reloadData()
         }
     }
@@ -155,11 +190,13 @@ class ContactsVC: UIViewController {
 
 extension ContactsVC {
     
-    private func fetchCoreData(sortOrderType: SortOrderEnum) {
+    private func fetchCoreData(sortOrderType: SortOrderEnum, isFavorite: IsFavoriteEnum) {
         fetchContacts { (complete) in
             
             namesArray.removeAll()
             contactImagesArray.removeAll()
+            
+            var tempContactsArray: [Person] = []
             
             if complete {
                 
@@ -173,19 +210,31 @@ extension ContactsVC {
                     return a.firstName! < b.firstName!
                 })
                 
-                for i in personArray {
+                onlyFavoriteContactsArray = personArray.filter( {$0.isFavorite == true})
+                
+                if showFavoriteContactsOnly == .yes {
+                    tempContactsArray = onlyFavoriteContactsArray
+                    
+                    if onlyFavoriteContactsArray.isEmpty {
+                        startAnimationLoaderNoFavorites()
+                    } else {
+                        stopAnimationLoader()
+                    }
+                    
+                } else if showFavoriteContactsOnly == .no {
+                    tempContactsArray = personArray
+                }
+                
+                for i in tempContactsArray {
                     
                     var fullName = String()
                     
                     if sortOrderType == .byFirstName {
                         fullName = "\(i.firstName!) \(i.lastName!)"
-                        print("first name sort")
                     } else if sortOrderType == .byLastName {
                         fullName = "\(i.lastName!) \(i.firstName!)"
-                        print("last name sort")
                     }
                     
-                   
                     let image = UIImage(data: i.profileImage!)
                     let isFavorite = i.isFavorite
                     
@@ -194,8 +243,8 @@ extension ContactsVC {
                     contactFavoritesDictionary[fullName] = isFavorite
                 }
                 createNameDictionary()
-             //   print(namesArray)
-                print(contactFavoritesDictionary)
+            
+                print(contactNamesDictionary)
             } else {
                 print("error fetched core data")
             }
@@ -417,9 +466,10 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
-        if searchController.isActive && searchController.searchBar.text != "" {
+        if searchController.isActive && searchController.searchBar.text != "" || showFavoriteContactsOnly == .yes {
             return false
         }
+        
         
         return true
     }
@@ -436,7 +486,7 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
             if arrayCount == 1 { //if sections doesn't contain values, delete section header
                 
                 self.removeContact(atIndexPath: indexPath)
-                self.fetchCoreData(sortOrderType: sortOrder)
+                self.fetchCoreData(sortOrderType: sortOrder, isFavorite: showFavoriteContactsOnly)
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 
@@ -449,7 +499,7 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 
                 self.removeContact(atIndexPath: indexPath)
-                self.fetchCoreData(sortOrderType: sortOrder)
+                self.fetchCoreData(sortOrderType: sortOrder, isFavorite: showFavoriteContactsOnly)
                 
                 tableView.beginUpdates()
                 tableView.deleteRows(at: [indexPath], with: .automatic)
