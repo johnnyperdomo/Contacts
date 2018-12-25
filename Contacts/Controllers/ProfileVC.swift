@@ -37,6 +37,8 @@ class ProfileVC: UIViewController {
     private var emailArray = [String]()
     private var addressArray = [String]()
     
+    private var datePicker = UIDatePicker()
+    
     private var userDataArray: [Int : [String]] = [0: [], 1: [], 2: []] //to store user data -> 0: phone, 1: email, 2: address
     
     private var profileType: ProfileTypeEnum!
@@ -46,6 +48,7 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProfileVC()
+        setUpDatePicker()
     }
     
     //MARK: IBOutlets -----------------------------------------------------------------------------
@@ -305,6 +308,29 @@ class ProfileVC: UIViewController {
         nameLbl.text = "\(firstNameString) \(lastNameString)"
         dateOfBirthLbl.text = "Birthday: \(dateOfBirthString) 🎉"
         profileImg.image = profileImage
+    }
+    
+    private func setUpDatePicker() {
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(dateChanged(datePicker:)), for: .valueChanged)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
+        
+        view.addGestureRecognizer(tapGesture)
+        
+        dateOfBirthTextField.inputView = datePicker
+    }
+    
+    @objc private func viewTapped(_ gestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
+    @objc private func dateChanged(datePicker: UIDatePicker) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        
+        dateOfBirthTextField.text = dateFormatter.string(from: datePicker.date)
     }
     
     private func appendUserData(text: String, section: Int) {
