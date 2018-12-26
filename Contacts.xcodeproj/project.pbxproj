@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		52DA79C0E3A347B915DB8EEB /* Pods_Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA715FC105ED13A55ED854D /* Pods_Contacts.framework */; };
+		FE17704521D3FB2C00F7F0BE /* DatePickerBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704421D3FB2C00F7F0BE /* DatePickerBulletinItem.swift */; };
+		FE17704721D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */; };
+		FE17704B21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */; };
+		FE17704D21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704C21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift */; };
 		FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */; };
 		FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DC21CEE83000F22572 /* CustomButton.swift */; };
 		FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */; };
@@ -35,6 +39,10 @@
 		31D2E602750EE12B5F71E140 /* Pods-Contacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Contacts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Contacts/Pods-Contacts.release.xcconfig"; sourceTree = "<group>"; };
 		7DA715FC105ED13A55ED854D /* Pods_Contacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Contacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDCDA387B91B9C6963CD66B5 /* Pods-Contacts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Contacts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Contacts/Pods-Contacts.debug.xcconfig"; sourceTree = "<group>"; };
+		FE17704421D3FB2C00F7F0BE /* DatePickerBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerBulletinItem.swift; sourceTree = "<group>"; };
+		FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextFieldBulletinItem.swift; sourceTree = "<group>"; };
+		FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextFieldBulletinItem.swift; sourceTree = "<group>"; };
+		FE17704C21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldBulletinItem.swift; sourceTree = "<group>"; };
 		FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTypeEnum.swift; sourceTree = "<group>"; };
 		FE57A5DC21CEE83000F22572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
@@ -87,6 +95,17 @@
 				31D2E602750EE12B5F71E140 /* Pods-Contacts.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		FE17704321D3FB1700F7F0BE /* Boards */ = {
+			isa = PBXGroup;
+			children = (
+				FE17704421D3FB2C00F7F0BE /* DatePickerBulletinItem.swift */,
+				FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */,
+				FE17704C21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift */,
+				FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */,
+			);
+			path = Boards;
 			sourceTree = "<group>";
 		};
 		FE9E0AF421D06B0F00B39060 /* Controllers */ = {
@@ -169,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				FE9E0AFC21D06B7B00B39060 /* JsonAnimations */,
+				FE17704321D3FB1700F7F0BE /* Boards */,
 				FE9E0AF621D06B2D00B39060 /* Enums */,
 				FE9E0AF521D06B1F00B39060 /* Extensions */,
 				FE9E0AFA21D06B5C00B39060 /* Cells */,
@@ -281,10 +301,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Contacts/Pods-Contacts-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BLTNBoard.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,10 +324,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE925C2021D25F200000D66E /* UIViewExtension.swift in Sources */,
+				FE17704D21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift in Sources */,
+				FE17704521D3FB2C00F7F0BE /* DatePickerBulletinItem.swift in Sources */,
 				FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */,
 				FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */,
 				FE9E0AEF21D00A4F00B39060 /* GradientView.swift in Sources */,
 				FEA6A3DF21C9A1F6006410C7 /* ContactsVC.swift in Sources */,
+				FE17704721D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift in Sources */,
 				FEA6A3F821CA5BE5006410C7 /* ProfileVC.swift in Sources */,
 				FE9E0AED21D0057C00B39060 /* CustomUIView.swift in Sources */,
 				FEF9882921D11E150095F28A /* SortOrderEnum.swift in Sources */,
@@ -311,6 +338,7 @@
 				FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */,
 				FEA6A3E521C9A1F6006410C7 /* Contacts.xcdatamodeld in Sources */,
 				FEF9882B21D11EB40095F28A /* IsFavoriteEnum.swift in Sources */,
+				FE17704B21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift in Sources */,
 				FE57A5E121CEEA8B00F22572 /* CustomUIViewTopRounded.swift in Sources */,
 				FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */,
 				FEA6A3FA21CA5F3C006410C7 /* CreateProfileCell.swift in Sources */,

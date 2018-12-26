@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import SwiftMessages
+import BLTNBoard
 
 class ProfileVC: UIViewController {
     
@@ -46,16 +48,131 @@ class ProfileVC: UIViewController {
     private var isFavorite: IsFavoriteEnum!
     private var initialIsFavoriteValue: IsFavoriteEnum!
     
+    private var userDataButtonInfo = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProfileVC()
         setUpDatePicker()
     }
     
+    //MARK: Bulletin Items -----------------------------------------------------------------------------
+    
+    lazy var phoneNumberBulletin: BLTNItemManager = {
+        
+        let page = PhoneTextFieldBulletinItem(title: "Phone Number")
+        page.descriptionText = "Enter a phone number"
+        page.actionButtonTitle = "Enter"
+        page.alternativeButtonTitle = "Close"
+        
+        page.actionHandler = { (item: BLTNActionItem) in
+            
+            var numberString = page.textField.text!
+            
+            if self.isPhoneNumberValid(numberString) == false {
+                self.showIncorrectPhoneNumberErrorCard()
+                return
+            }
+            
+            numberString.insert("-", at: numberString.index(numberString.startIndex, offsetBy: 3))
+            numberString.insert("-", at: numberString.index(numberString.startIndex, offsetBy: 7))
+            print(numberString)
+            
+            print("Action button tapped")
+           
+        }
+        
+        page.alternativeHandler = { (item: BLTNActionItem) in
+            self.dismissPhoneNumberBoard()
+        }
+        
+        let item: BLTNItem = page
+        item.isDismissable = true
+        item.requiresCloseButton = false
+        return BLTNItemManager(rootItem: item)
+    }()
+    
+    lazy var emailBulletin: BLTNItemManager = {
+        
+        let page = EmailTextFieldBulletinItem(title: "Email")
+        page.descriptionText = "Enter an email."
+        page.actionButtonTitle = "Enter"
+        page.alternativeButtonTitle = "Close"
+        
+        page.actionHandler = { (item: BLTNActionItem) in
+            
+            if self.isEmailValid(page.textField.text!) == false {
+                self.showIncorrectEmailFormatErrorCard()
+                return
+            }
+            
+            self.dismissEmailBoard()
+            print(page.textField.text)
+            print(self.userDataButtonInfo.tag)
+            
+            
+            print("Action button tapped")
+        }
+        page.alternativeHandler = { (item: BLTNActionItem) in
+            self.dismissEmailBoard()
+        }
+        
+        let item: BLTNItem = page
+        item.isDismissable = true
+        item.requiresCloseButton = false
+        return BLTNItemManager(rootItem: item)
+    }()
+    
+    lazy var addressBulletin: BLTNItemManager = {
+        
+        let page = AddressTextFieldBulletinItem(title: "Address")
+        page.descriptionText = "Enter a work or home address."
+        page.actionButtonTitle = "Enter"
+        page.alternativeButtonTitle = "Close"
+
+        page.actionHandler = { (item: BLTNActionItem) in
+            
+            print("Action button tapped")
+        }
+        
+        page.alternativeHandler = { (item: BLTNActionItem) in
+            self.dismissAddressBoard()
+        }
+        
+        let item: BLTNItem = page
+        item.isDismissable = true
+        item.requiresCloseButton = false
+        return BLTNItemManager(rootItem: item)
+    }()
+    
+    
+    lazy var datePickerBulletin: BLTNItemManager = {
+        
+        let page = DatePickerBLTNItem(title: "Birthday")
+        page.descriptionText = "Enter a date of birth."
+        page.actionButtonTitle = "Enter"
+        page.alternativeButtonTitle = "Close"
+        
+        page.actionHandler = { (item: BLTNActionItem) in
+            
+            print("Action button tapped")
+        }
+        
+        page.alternativeHandler = { (item: BLTNActionItem) in
+            self.dismissDatePickerBoard()
+        }
+        
+        let item: BLTNItem = page
+        item.isDismissable = true
+        item.requiresCloseButton = false
+        return BLTNItemManager(rootItem: item)
+    }()
+    
     //MARK: IBOutlets -----------------------------------------------------------------------------
     
     @IBOutlet weak private var profileTableView: UITableView!
     @IBOutlet weak private var backgroundTableview: CustomUIViewTopRounded!
+    @IBOutlet weak private var backgroundTableViewTopContraint: NSLayoutConstraint!
     @IBOutlet weak private var firstNameTxtField: UITextField!
     @IBOutlet weak private var lastNameTxtField: UITextField!
     @IBOutlet weak private var dateOfBirthTextField: UITextField!
@@ -72,7 +189,6 @@ class ProfileVC: UIViewController {
     @IBOutlet weak private var favoritesIconImg: UIImageView!
     @IBOutlet weak private var favoritesIconShadowView: CustomUIView!
     
-    @IBOutlet weak var backgroundTableViewTopContraint: NSLayoutConstraint!
     //MARK: IBActions -----------------------------------------------------------------------------
     
     @IBAction private func saveBtnPressed(_ sender: Any) {
@@ -80,6 +196,12 @@ class ProfileVC: UIViewController {
         if profileType == ProfileTypeEnum.createNew {
             
             if firstNameTxtField.text != "" && lastNameTxtField.text != "" && dateOfBirthTextField.text != "" && (userDataArray[0]?.count)! >= 1 && (userDataArray[1]?.count)! >= 1 {
+                
+                
+                if isPhoneNumberValid(userDataArray[0]![0]) == false {
+                    showIncorrectPhoneNumberErrorCard()
+                    return
+                }
                 
                 saveProfile(firstName: (firstNameTxtField.text?.capitalized)!, lastName: (lastNameTxtField.text?.capitalized)!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: userDataArray[0]!, emails: userDataArray[1]!, addresses: userDataArray[2]!, profileImage: profileImg.image!, isFavoritePerson: isFavorite) { (complete) in
                     
@@ -92,7 +214,7 @@ class ProfileVC: UIViewController {
                 }
                 
             } else {
-                print("complete text fields")
+                showIncompleteFieldsErrorCard()
             }
             
         } else {
@@ -105,14 +227,20 @@ class ProfileVC: UIViewController {
                 isFavoriteBool = true
             }
             
-            modifyProfileInfo(searchFirstName: firstNameString, searchLastName: lastNameString, searchDateOfBirth: dateOfBirthString, newFirstName: firstNameTxtField.text!, newLastName: lastNameTxtField.text!, newDateOfBirth: dateOfBirthTextField.text!, newProfileImage: profileImg.image!, newPhonenumbers: userDataArray[0]!, newEmails: userDataArray[1]!, newAddresses: userDataArray[2]!, newIsFavoritePerson: isFavoriteBool ) { (complete) in
+            if firstNameTxtField.text != "" && lastNameTxtField.text != "" && dateOfBirthTextField.text != "" && (userDataArray[0]?.count)! >= 1 && (userDataArray[1]?.count)! >= 1 {
             
-                if complete {
-                    guard let contactsVC = storyboard?.instantiateViewController(withIdentifier: "ContactsVC") else { return }
-                    self.present(contactsVC, animated: true)
-                } else {
-                    print("error saving")
+                modifyProfileInfo(searchFirstName: firstNameString, searchLastName: lastNameString, searchDateOfBirth: dateOfBirthString, newFirstName: firstNameTxtField.text!, newLastName: lastNameTxtField.text!, newDateOfBirth: dateOfBirthTextField.text!, newProfileImage: profileImg.image!, newPhonenumbers: userDataArray[0]!, newEmails: userDataArray[1]!, newAddresses: userDataArray[2]!, newIsFavoritePerson: isFavoriteBool ) { (complete) in
+                
+                    if complete {
+                        guard let contactsVC = storyboard?.instantiateViewController(withIdentifier: "ContactsVC") else { return }
+                        self.present(contactsVC, animated: true)
+                    } else {
+                        print("error saving")
+                    }
                 }
+                
+            } else {
+                showIncompleteFieldsErrorCard()
             }
         }
     }
@@ -354,29 +482,39 @@ class ProfileVC: UIViewController {
         profileTableView.reloadData()
     }
     
-    @objc private func callAlertActionForUserData(button: UIButton) {
+    @objc private func addUserDataText(button: UIButton) {
         
-        let alert = UIAlertController(title: "New Value", message: "Add a new Value", preferredStyle: .alert)
+        userDataButtonInfo = button
         
-        let saveAction = UIAlertAction(title: "Save", style: .default) {
-            [unowned self] action in
-            
-            guard let textField = alert.textFields?.first,
-                let stringText = textField.text else {
-                    return
-            }
-            
-            self.appendUserData(text: stringText, section: button.tag)
+        if button.tag == 0 {
+             phoneNumberBulletin.showBulletin(above: self)
+        } else if button.tag == 1 {
+            emailBulletin.showBulletin(above: self)
+        } else if button.tag == 2 {
+            addressBulletin.showBulletin(above: self)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
-        
-        alert.addTextField()
-        
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true)
+//        let alert = UIAlertController(title: "New Value", message: "Add a new Value", preferredStyle: .alert)
+//
+//        let saveAction = UIAlertAction(title: "Save", style: .default) {
+//            [unowned self] action in
+//
+//            guard let textField = alert.textFields?.first,
+//                let stringText = textField.text else {
+//                    return
+//            }
+//
+//            self.appendUserData(text: stringText, section: button.tag)
+//        }
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+//
+//        alert.addTextField()
+//
+//        alert.addAction(saveAction)
+//        alert.addAction(cancelAction)
+//
+//        present(alert, animated: true)
     }
     
     private func addFavoritePerson(isFavoritePerson: IsFavoriteEnum) {
@@ -391,6 +529,97 @@ class ProfileVC: UIViewController {
             favoritesBtn.setImage(UIImage(named: "starUnfilled"), for: .normal)
             favoritesLbl.text = "Add to favorites"
         }
+    }
+}
+
+//MARK: Validations, Error Cards, Boards  ----------------------------------------------------------------------------
+
+extension ProfileVC {
+    
+    private func isEmailValid(_ email: String) -> Bool {
+        
+        do {
+            if try NSRegularExpression(pattern: "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$", options: .caseInsensitive).firstMatch(in: email, options: [], range: NSRange(location: 0, length: email.count)) == nil {
+                return false
+            }
+        } catch {
+            return false
+        }
+        return true
+    }
+    
+    func isPhoneNumberValid(_ phoneNumber: String) -> Bool {
+        
+        if phoneNumber.count < 10 {
+            return false
+        }
+        
+        var number = phoneNumber
+        
+        number.insert("-", at: number.index(number.startIndex, offsetBy: 3))
+        number.insert("-", at: number.index(number.startIndex, offsetBy: 7))
+
+        let regex = "^\\d{3}-\\d{3}-\\d{4}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", regex)
+        let result =  phoneTest.evaluate(with: number)
+        return result
+        
+    }
+    
+    private func showIncompleteFieldsErrorCard() {
+        
+        let view = MessageView.viewFromNib(layout: .cardView)
+        
+        view.configureTheme(.error)
+        
+        view.configureDropShadow()
+        
+        view.button?.isHidden = true
+        let iconText = "😕"
+        view.configureContent(title: "Incomplete Fields", body: "Make sure to fill out all the information, addresses are optional.", iconText: iconText)
+        SwiftMessages.show(view: view)
+    }
+    
+    private func showIncorrectPhoneNumberErrorCard() {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        
+        view.configureTheme(.error)
+        
+        view.configureDropShadow()
+        
+        view.button?.isHidden = true
+        let iconText = "📱"
+        view.configureContent(title: "Incorrect Phone Number", body: "Please enter a valid phone number.", iconText: iconText)
+        SwiftMessages.show(view: view)
+    }
+    
+    private func showIncorrectEmailFormatErrorCard() {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        
+        view.configureTheme(.error)
+        
+        view.configureDropShadow()
+        
+        view.button?.isHidden = true
+        let iconText = "✉️"
+        view.configureContent(title: "Incorrect Email Format", body: "Please enter a valid email.", iconText: iconText)
+        SwiftMessages.show(view: view)
+    }
+    
+    private func dismissDatePickerBoard() {
+        datePickerBulletin.dismissBulletin()
+    }
+    
+    private func dismissPhoneNumberBoard() {
+        phoneNumberBulletin.dismissBulletin()
+    }
+    
+    private func dismissEmailBoard() {
+        emailBulletin.dismissBulletin()
+    }
+    
+    private func dismissAddressBoard() {
+        addressBulletin.dismissBulletin()
     }
 }
 
@@ -516,8 +745,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         button.backgroundColor = .white
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         
-        
-        button.addTarget(self, action: #selector(callAlertActionForUserData), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addUserDataText), for: .touchUpInside)
         
         button.tag = section
         

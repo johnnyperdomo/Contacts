@@ -7,4 +7,6 @@ target 'Contacts' do
 
   # Pods for Contacts
     pod 'lottie-ios'
+    pod 'SwiftMessages'
+    pod 'BulletinBoard'
 end
