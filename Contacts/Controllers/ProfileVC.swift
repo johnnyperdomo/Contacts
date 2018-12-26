@@ -27,6 +27,7 @@ class ProfileVC: UIViewController {
     private var isFavoritesIconShadowViewHidden = Bool()
     private var isFavoritesLblHidden = Bool()
     private var isFavoritesBtnHidden = Bool()
+    private var isTableViewEditable = Bool()
     
     private var firstNameString = String()
     private var lastNameString = String()
@@ -140,6 +141,8 @@ class ProfileVC: UIViewController {
         cancelBtn.isHidden = false
         changeImageBtn.isHidden = false
         
+        isTableViewEditable = true
+        
         favoritesBtn.isHidden = false
         favoritesLbl.isHidden = false
         favoritesIconImg.isHidden = true
@@ -176,6 +179,8 @@ class ProfileVC: UIViewController {
         saveBtn.isHidden = true
         cancelBtn.isHidden = true
         changeImageBtn.isHidden = true
+        
+        isTableViewEditable = false
         
         favoritesBtn.isHidden = true
         favoritesLbl.isHidden = true
@@ -239,6 +244,8 @@ class ProfileVC: UIViewController {
             self.isSaveBtnHidden = false
             self.isChangeImageBtnHidden = false
             
+            self.isTableViewEditable = true
+            
             self.isFavoritesLblHidden = false
             self.isFavoritesBtnHidden = false
             self.isFavoritesIconImgHidden = true
@@ -257,6 +264,8 @@ class ProfileVC: UIViewController {
             self.isDateOfBirthTextFieldHidden = true
             self.isSaveBtnHidden = true
             self.isChangeImageBtnHidden = true
+            
+            self.isTableViewEditable = false
             
             self.isFavoritesLblHidden = true
             self.isFavoritesBtnHidden = true
@@ -524,6 +533,32 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         cell.txtLabel.text = value![indexPath.row]
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        if isTableViewEditable == false {
+            return false
+        } else {
+            return true
+        }
+    
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            var tempArray = userDataArray[indexPath.section]
+            tempArray?.remove(at: indexPath.row)
+            
+            userDataArray[indexPath.section] = tempArray
+
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+            
+        }
     }
 }
 

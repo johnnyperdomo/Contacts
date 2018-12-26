@@ -470,7 +470,6 @@ extension ContactsVC: UITableViewDataSource, UITableViewDelegate {
             return false
         }
         
-        
         return true
     }
     
