@@ -153,10 +153,12 @@ class ProfileVC: UIViewController {
             
             self.dateChanged(datePicker: page.datePicker)
             self.dismissDatePickerBoard()
+            self.view.endEditing(true)
         }
         
         page.alternativeHandler = { (item: BLTNActionItem) in
             self.dismissDatePickerBoard()
+            self.view.endEditing(true)
         }
         
         let item: BLTNItem = page
@@ -547,7 +549,7 @@ extension ProfileVC {
         
         view.button?.isHidden = true
         let iconText = "📱"
-        view.configureContent(title: "Incorrect Phone Number", body: "Please enter a valid phone number.", iconText: iconText)
+        view.configureContent(title: "Incorrect Phone Number", body: "Please enter a valid 10-digit phone number.", iconText: iconText)
         SwiftMessages.show(view: view)
     }
     
@@ -697,7 +699,6 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return (userDataArray[section]?.count)!
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -725,16 +726,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
             header.addButton.isHidden = false
             header.addButtonShadowView.isHidden = false
         }
-//        let button = UIButton(type: .system)
-//        button.setTitle(sectionName, for: .normal)
-//        button.setTitleColor(.black, for: .normal)
-//        button.backgroundColor = .white
-//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-//
-//        button.addTarget(self, action: #selector(addUserDataText), for: .touchUpInside)
-//
-//        button.tag = section
-        
+
         return header
     }
     
@@ -783,13 +775,27 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
             tempArray?.remove(at: indexPath.row)
             
             userDataArray[indexPath.section] = tempArray
-
+            
             tableView.beginUpdates()
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            profileTableView.reloadData()
             tableView.endUpdates()
-            
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let indexPath = tableView.indexPathForSelectedRow
+        
+        let selectedValue = userDataArray[(indexPath?.section)!]![(indexPath?.row)!]
+        
+        let phoneCallURL = URL(string: "tel://\(selectedValue)")
+        
+        guard let url = phoneCallURL else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+      //  let emailURL
+      //  let mapURL
+    }
+    
 }
 
 //MARK: Image Picker -----------------------------------------------------------------
