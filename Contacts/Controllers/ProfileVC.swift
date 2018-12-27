@@ -75,10 +75,9 @@ class ProfileVC: UIViewController {
             
             numberString.insert("-", at: numberString.index(numberString.startIndex, offsetBy: 3))
             numberString.insert("-", at: numberString.index(numberString.startIndex, offsetBy: 7))
-            print(numberString)
             
-            print("Action button tapped")
-           
+            self.appendUserData(text: numberString, section: self.userDataButtonInfo.tag)
+            self.dismissPhoneNumberBoard()
         }
         
         page.alternativeHandler = { (item: BLTNActionItem) in
@@ -94,7 +93,7 @@ class ProfileVC: UIViewController {
     lazy var emailBulletin: BLTNItemManager = {
         
         let page = EmailTextFieldBulletinItem(title: "Email")
-        page.descriptionText = "Enter an email."
+        page.descriptionText = "Enter an email address."
         page.actionButtonTitle = "Enter"
         page.alternativeButtonTitle = "Close"
         
@@ -105,13 +104,10 @@ class ProfileVC: UIViewController {
                 return
             }
             
+            self.appendUserData(text: page.textField.text!, section: self.userDataButtonInfo.tag)
             self.dismissEmailBoard()
-            print(page.textField.text)
-            print(self.userDataButtonInfo.tag)
-            
-            
-            print("Action button tapped")
         }
+        
         page.alternativeHandler = { (item: BLTNActionItem) in
             self.dismissEmailBoard()
         }
@@ -131,7 +127,8 @@ class ProfileVC: UIViewController {
 
         page.actionHandler = { (item: BLTNActionItem) in
             
-            print("Action button tapped")
+            self.appendUserData(text: page.textField.text!, section: self.userDataButtonInfo.tag)
+            self.dismissAddressBoard()
         }
         
         page.alternativeHandler = { (item: BLTNActionItem) in
@@ -196,12 +193,6 @@ class ProfileVC: UIViewController {
         if profileType == ProfileTypeEnum.createNew {
             
             if firstNameTxtField.text != "" && lastNameTxtField.text != "" && dateOfBirthTextField.text != "" && (userDataArray[0]?.count)! >= 1 && (userDataArray[1]?.count)! >= 1 {
-                
-                
-                if isPhoneNumberValid(userDataArray[0]![0]) == false {
-                    showIncorrectPhoneNumberErrorCard()
-                    return
-                }
                 
                 saveProfile(firstName: (firstNameTxtField.text?.capitalized)!, lastName: (lastNameTxtField.text?.capitalized)!, dateOfBirth: dateOfBirthTextField.text!, phoneNumbers: userDataArray[0]!, emails: userDataArray[1]!, addresses: userDataArray[2]!, profileImage: profileImg.image!, isFavoritePerson: isFavorite) { (complete) in
                     
@@ -478,28 +469,6 @@ class ProfileVC: UIViewController {
         } else if button.tag == 2 {
             addressBulletin.showBulletin(above: self)
         }
-        
-//        let alert = UIAlertController(title: "New Value", message: "Add a new Value", preferredStyle: .alert)
-//
-//        let saveAction = UIAlertAction(title: "Save", style: .default) {
-//            [unowned self] action in
-//
-//            guard let textField = alert.textFields?.first,
-//                let stringText = textField.text else {
-//                    return
-//            }
-//
-//            self.appendUserData(text: stringText, section: button.tag)
-//        }
-//
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
-//
-//        alert.addTextField()
-//
-//        alert.addAction(saveAction)
-//        alert.addAction(cancelAction)
-//
-//        present(alert, animated: true)
     }
     
     private func addFavoritePerson(isFavoritePerson: IsFavoriteEnum) {
@@ -533,7 +502,7 @@ extension ProfileVC {
         return true
     }
     
-    func isPhoneNumberValid(_ phoneNumber: String) -> Bool {
+    private func isPhoneNumberValid(_ phoneNumber: String) -> Bool {
         
         if phoneNumber.count < 10 {
             return false
@@ -587,7 +556,7 @@ extension ProfileVC {
         
         view.button?.isHidden = true
         let iconText = "✉️"
-        view.configureContent(title: "Incorrect Email Format", body: "Please enter a valid email.", iconText: iconText)
+        view.configureContent(title: "Incorrect Email Format", body: "Please enter a valid email address.", iconText: iconText)
         SwiftMessages.show(view: view)
     }
     
