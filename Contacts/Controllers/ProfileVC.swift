@@ -283,6 +283,8 @@ class ProfileVC: UIViewController {
         firstNameTxtField.text = firstNameString
         lastNameTxtField.text = lastNameString
         dateOfBirthTextField.text = dateOfBirthString
+        
+        profileTableView.reloadData()
     }
     
     @IBAction private func cancelBtnPressed(_ sender: Any) {
@@ -327,6 +329,8 @@ class ProfileVC: UIViewController {
         
         nameLbl.text = "\(firstNameString) \(lastNameString)"
         dateOfBirthLbl.text = "Birthday: \(dateOfBirthString) 🎉"
+        
+        profileTableView.reloadData()
     }
     
     @IBAction private func backBtnPressed(_ sender: Any) {
@@ -697,33 +701,66 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return 45
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = Bundle.main.loadNibNamed("SectionHeaderView", owner: self, options: nil)?.first as! SectionHeaderView
         
-        let sectionName = section == 0 ? "Phone Numbers" : section == 1 ? "Email" : "addresses"
+        let sectionName = section == 0 ? "Phone Number" : section == 1 ? "Email" : "Address"
         
-        let button = UIButton(type: .system)
-        button.setTitle(sectionName, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .white
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        header.sectionTitleLabel.text = sectionName
+        header.addButton.addTarget(self, action: #selector(addUserDataText), for: .touchUpInside)
         
-        button.addTarget(self, action: #selector(addUserDataText), for: .touchUpInside)
+        header.addButton.tag = section
         
-        button.tag = section
+        if isTableViewEditable == false {
+            header.addButton.isHidden = true
+            header.addButtonShadowView.isHidden = true
+        } else if isTableViewEditable == true {
+            header.addButton.isHidden = false
+            header.addButtonShadowView.isHidden = false
+        }
+//        let button = UIButton(type: .system)
+//        button.setTitle(sectionName, for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .white
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+//
+//        button.addTarget(self, action: #selector(addUserDataText), for: .touchUpInside)
+//
+//        button.tag = section
         
-        return button
+        return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = profileTableView.dequeueReusableCell(withIdentifier: "createProfileCell", for: indexPath) as? CreateProfileCell else { return UITableViewCell() }
         
+        let phoneIcon = UIImage(named: "bluePhoneIcon")
+        let emailIcon = UIImage(named: "blueEmailIcon")
+        let mapIcon = UIImage(named: "blueMapIcon")
+        
+        let icon = indexPath.section == 0 ? phoneIcon : indexPath.section == 1 ? emailIcon : mapIcon
         
         let value = userDataArray[indexPath.section]
         
         cell.txtLabel.text = value![indexPath.row]
+        cell.actionImageIcon.image = icon
+        
+        if isTableViewEditable == false {
+            cell.actionImageIcon.isHidden = false
+            cell.actionImageIconShadow.isHidden = false
+            profileTableView.allowsSelection = true
+        } else if isTableViewEditable == true {
+            cell.actionImageIcon.isHidden = true
+            cell.actionImageIconShadow.isHidden = true
+            profileTableView.allowsSelection = false
+        }
         
         return cell
     }

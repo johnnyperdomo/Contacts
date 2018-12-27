@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeaderView" id="KGk-i7-Jjw" customClass="SectionHeaderView" customModule="Contacts" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="39.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="D7c-Gv-gs1">
+                        <rect key="frame" x="30" y="6" width="309" height="27.5"/>
+                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57I-ur-Axl" customClass="CustomUIView" customModule="Contacts" customModuleProvider="target">
+                        <rect key="frame" x="349" y="7.5" width="25" height="25"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Nba-Ho-no8"/>
+                            <constraint firstAttribute="width" constant="25" id="TVg-ia-elY"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                <real key="value" value="12.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOQ-h4-X4y">
+                        <rect key="frame" x="349" y="7.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="6uk-ow-fYi"/>
+                            <constraint firstAttribute="width" constant="25" id="kLP-Rk-ngh"/>
+                        </constraints>
+                        <state key="normal" image="blueAddBtn"/>
+                    </button>
+                    <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9f-xb-xhV">
+                        <rect key="frame" x="0.0" y="38.5" width="414" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="nft-p0-yUw"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="GOQ-h4-X4y" secondAttribute="trailing" constant="40" id="60N-ia-HpC"/>
+                    <constraint firstAttribute="trailing" secondItem="57I-ur-Axl" secondAttribute="trailing" constant="40" id="OOg-ot-Yp2"/>
+                    <constraint firstItem="57I-ur-Axl" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ri9-vd-b1g"/>
+                    <constraint firstAttribute="trailing" secondItem="N9f-xb-xhV" secondAttribute="trailing" id="Wyc-yF-fub"/>
+                    <constraint firstItem="GOQ-h4-X4y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xzv-Ff-j8J"/>
+                    <constraint firstItem="D7c-Gv-gs1" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hIm-Ia-KPQ"/>
+                    <constraint firstAttribute="bottom" secondItem="N9f-xb-xhV" secondAttribute="bottom" id="lXj-BA-urT"/>
+                    <constraint firstItem="D7c-Gv-gs1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="rZ8-yD-BmF"/>
+                    <constraint firstItem="57I-ur-Axl" firstAttribute="leading" secondItem="D7c-Gv-gs1" secondAttribute="trailing" constant="10" id="tsR-ET-cP6"/>
+                    <constraint firstItem="N9f-xb-xhV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="zmG-mM-Mxg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addButton" destination="GOQ-h4-X4y" id="bsl-gj-6MF"/>
+                <outlet property="addButtonShadowView" destination="57I-ur-Axl" id="VRT-zG-UpO"/>
+                <outlet property="sectionTitleLabel" destination="D7c-Gv-gs1" id="2fC-c4-3iO"/>
+            </connections>
+            <point key="canvasLocation" x="115.2" y="46.776611694152926"/>
+        </tableViewCell>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bBA-BB-K9P">
+            <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <nil key="textColor"/>
+            <nil key="highlightedColor"/>
+            <point key="canvasLocation" x="382" y="52"/>
+        </label>
+    </objects>
+    <resources>
+        <image name="blueAddBtn" width="150" height="150"/>
+    </resources>
+</document>

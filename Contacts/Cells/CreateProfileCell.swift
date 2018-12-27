@@ -11,5 +11,7 @@ import UIKit
 class CreateProfileCell: UITableViewCell {
 
     @IBOutlet weak var txtLabel: UILabel!
+    @IBOutlet weak var actionImageIcon: UIImageView!
+    @IBOutlet weak var actionImageIconShadow: CustomUIView!
     
 }

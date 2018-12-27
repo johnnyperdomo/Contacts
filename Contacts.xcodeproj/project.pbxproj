@@ -13,6 +13,8 @@
 		FE17704B21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */; };
 		FE17704D21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704C21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift */; };
 		FE17704F21D48CCF00F7F0BE /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704E21D48CCF00F7F0BE /* CustomTextField.swift */; };
+		FE17705221D55D0400F7F0BE /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17705021D55D0400F7F0BE /* SectionHeaderView.swift */; };
+		FE17705321D55D0400F7F0BE /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE17705121D55D0400F7F0BE /* SectionHeaderView.xib */; };
 		FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */; };
 		FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DC21CEE83000F22572 /* CustomButton.swift */; };
 		FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */; };
@@ -45,6 +47,8 @@
 		FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextFieldBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704C21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704E21D48CCF00F7F0BE /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		FE17705021D55D0400F7F0BE /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		FE17705121D55D0400F7F0BE /* SectionHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
 		FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTypeEnum.swift; sourceTree = "<group>"; };
 		FE57A5DC21CEE83000F22572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			children = (
 				FEA6A3F921CA5F3C006410C7 /* CreateProfileCell.swift */,
 				FEA6A3F521C9C4BB006410C7 /* ContactsCell.swift */,
+				FE17705021D55D0400F7F0BE /* SectionHeaderView.swift */,
+				FE17705121D55D0400F7F0BE /* SectionHeaderView.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -194,8 +200,8 @@
 				FE17704321D3FB1700F7F0BE /* Boards */,
 				FE9E0AF621D06B2D00B39060 /* Enums */,
 				FE9E0AF521D06B1F00B39060 /* Extensions */,
-				FE9E0AFA21D06B5C00B39060 /* Cells */,
 				FE9E0AFB21D06B6500B39060 /* Views */,
+				FE9E0AFA21D06B5C00B39060 /* Cells */,
 				FE9E0AF421D06B0F00B39060 /* Controllers */,
 				FEA6A3E021C9A1F6006410C7 /* Main.storyboard */,
 				FEA6A3E621C9A1F9006410C7 /* Assets.xcassets */,
@@ -273,6 +279,7 @@
 				FEA6A3E221C9A1F6006410C7 /* Main.storyboard in Resources */,
 				FE9E0AF321D067EC00B39060 /* NoSearches.json in Resources */,
 				FE9E0AF121D0230B00B39060 /* AddContactLoader.json in Resources */,
+				FE17705321D55D0400F7F0BE /* SectionHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +337,7 @@
 				FE17704D21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift in Sources */,
 				FE17704521D3FB2C00F7F0BE /* DatePickerBulletinItem.swift in Sources */,
 				FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */,
+				FE17705221D55D0400F7F0BE /* SectionHeaderView.swift in Sources */,
 				FE17704F21D48CCF00F7F0BE /* CustomTextField.swift in Sources */,
 				FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */,
 				FE9E0AEF21D00A4F00B39060 /* GradientView.swift in Sources */,
@@ -493,6 +501,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JX3EAWJE5N;
 				INFOPLIST_FILE = Contacts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -501,7 +510,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyperdomo.Contacts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -511,6 +520,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JX3EAWJE5N;
 				INFOPLIST_FILE = Contacts/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -519,7 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyperdomo.Contacts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

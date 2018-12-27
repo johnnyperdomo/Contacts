@@ -349,20 +349,68 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vug-4E-Fed">
-                                                            <rect key="frame" x="40" y="22" width="334" height="21"/>
-                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                                            <nil key="textColor"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="vug-4E-Fed">
+                                                            <rect key="frame" x="45" y="20" width="279" height="25"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lv-wc-XV5" customClass="CustomUIView" customModule="Contacts" customModuleProvider="target">
+                                                            <rect key="frame" x="344" y="17.5" width="30" height="30"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="COw-Yy-W8d"/>
+                                                                <constraint firstAttribute="width" constant="30" id="spU-cg-ga1"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                                    <real key="value" value="4"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="rounded">
+                                                                    <real key="value" value="15"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                                    <real key="value" value="0.5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                                    <size key="value" width="0.0" height="2"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                                    <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blueAddBtn" translatesAutoresizingMaskIntoConstraints="NO" id="gcP-gM-XSw">
+                                                            <rect key="frame" x="344" y="17.5" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="3L1-5m-4bu"/>
+                                                                <constraint firstAttribute="height" constant="30" id="ugx-wB-vHD"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xlf-rs-aPQ">
+                                                            <rect key="frame" x="0.0" y="64" width="414" height="1"/>
+                                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="Xeq-uh-I5m"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="vug-4E-Fed" firstAttribute="leading" secondItem="OlD-ya-P7I" secondAttribute="leadingMargin" constant="20" id="CBZ-xe-gmd"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="vug-4E-Fed" secondAttribute="trailing" constant="20" id="NyU-Hc-6I6"/>
+                                                        <constraint firstItem="vug-4E-Fed" firstAttribute="leading" secondItem="OlD-ya-P7I" secondAttribute="leadingMargin" constant="25" id="CBZ-xe-gmd"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="gcP-gM-XSw" secondAttribute="trailing" constant="20" id="FYX-5e-E2D"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="4Lv-wc-XV5" secondAttribute="trailing" constant="20" id="KoF-CN-pdD"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Xlf-rs-aPQ" secondAttribute="bottom" id="WVQ-5s-Sg3"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Xlf-rs-aPQ" secondAttribute="trailing" id="agw-pA-LVI"/>
+                                                        <constraint firstItem="Xlf-rs-aPQ" firstAttribute="leading" secondItem="OlD-ya-P7I" secondAttribute="leading" id="dpD-hx-FFF"/>
                                                         <constraint firstItem="vug-4E-Fed" firstAttribute="centerY" secondItem="OlD-ya-P7I" secondAttribute="centerY" id="h37-H9-r1e"/>
+                                                        <constraint firstItem="4Lv-wc-XV5" firstAttribute="centerY" secondItem="OlD-ya-P7I" secondAttribute="centerY" id="hmw-RM-oT8"/>
+                                                        <constraint firstItem="gcP-gM-XSw" firstAttribute="centerY" secondItem="OlD-ya-P7I" secondAttribute="centerY" id="upU-bb-yku"/>
+                                                        <constraint firstItem="4Lv-wc-XV5" firstAttribute="leading" secondItem="vug-4E-Fed" secondAttribute="trailing" constant="20" id="vyt-dv-du8"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="actionImageIcon" destination="gcP-gM-XSw" id="fTQ-a2-yM1"/>
+                                                    <outlet property="actionImageIconShadow" destination="4Lv-wc-XV5" id="Dff-JL-4x4"/>
                                                     <outlet property="txtLabel" destination="vug-4E-Fed" id="hDy-e8-Qw4"/>
                                                 </connections>
                                             </tableViewCell>
@@ -605,6 +653,7 @@
     </scenes>
     <resources>
         <image name="backBtn" width="180" height="180"/>
+        <image name="blueAddBtn" width="150" height="150"/>
         <image name="cancelBtn" width="96" height="96"/>
         <image name="createContactBtn" width="96" height="96"/>
         <image name="modifyBtn" width="96" height="96"/>
