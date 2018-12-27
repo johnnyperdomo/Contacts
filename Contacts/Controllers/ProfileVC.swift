@@ -53,7 +53,6 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupProfileVC()
-        setUpDatePicker()
     }
     
     //MARK: Bulletin Items -----------------------------------------------------------------------------
@@ -155,7 +154,8 @@ class ProfileVC: UIViewController {
         
         page.actionHandler = { (item: BLTNActionItem) in
             
-            print("Action button tapped")
+            self.dateChanged(datePicker: page.datePicker)
+            self.dismissDatePickerBoard()
         }
         
         page.alternativeHandler = { (item: BLTNActionItem) in
@@ -447,22 +447,7 @@ class ProfileVC: UIViewController {
         profileImg.image = profileImage
     }
     
-    private func setUpDatePicker() {
-        datePicker.datePickerMode = .date
-        datePicker.addTarget(self, action: #selector(dateChanged(datePicker:)), for: .valueChanged)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
-        
-        view.addGestureRecognizer(tapGesture)
-        
-        dateOfBirthTextField.inputView = datePicker
-    }
-    
-    @objc private func viewTapped(_ gestureRecognizer: UITapGestureRecognizer) {
-        view.endEditing(true)
-    }
-    
-    @objc private func dateChanged(datePicker: UIDatePicker) {
+     private func dateChanged(datePicker: UIDatePicker) {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy"
@@ -715,6 +700,17 @@ extension ProfileVC: UITextFieldDelegate {
         
         return true
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        if textField == dateOfBirthTextField {
+            datePickerBulletin.showBulletin(above: self)
+            return false
+        }
+        
+        return true
+    }
+    
 }
 
 //MARK: TableView ------------------------------------------------------------------------------
