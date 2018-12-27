@@ -12,6 +12,7 @@
 		FE17704721D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */; };
 		FE17704B21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */; };
 		FE17704D21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704C21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift */; };
+		FE17704F21D48CCF00F7F0BE /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704E21D48CCF00F7F0BE /* CustomTextField.swift */; };
 		FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */; };
 		FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DC21CEE83000F22572 /* CustomButton.swift */; };
 		FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */; };
@@ -43,6 +44,7 @@
 		FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextFieldBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextFieldBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704C21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTextFieldBulletinItem.swift; sourceTree = "<group>"; };
+		FE17704E21D48CCF00F7F0BE /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		FE57A5DA21CC4F6000F22572 /* ProfileTypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTypeEnum.swift; sourceTree = "<group>"; };
 		FE57A5DC21CEE83000F22572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				FE57A5DC21CEE83000F22572 /* CustomButton.swift */,
 				FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */,
 				FE9E0AEE21D00A4F00B39060 /* GradientView.swift */,
+				FE17704E21D48CCF00F7F0BE /* CustomTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				FE17704D21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift in Sources */,
 				FE17704521D3FB2C00F7F0BE /* DatePickerBulletinItem.swift in Sources */,
 				FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */,
+				FE17704F21D48CCF00F7F0BE /* CustomTextField.swift in Sources */,
 				FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */,
 				FE9E0AEF21D00A4F00B39060 /* GradientView.swift in Sources */,
 				FEA6A3DF21C9A1F6006410C7 /* ContactsVC.swift in Sources */,
