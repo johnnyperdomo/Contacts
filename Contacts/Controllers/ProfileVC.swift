@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import MessageUI
 import SwiftMessages
 import BLTNBoard
 
@@ -788,10 +789,9 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         
         let selectedValue = userDataArray[(indexPath?.section)!]![(indexPath?.row)!]
         
-        let phoneCallURL = URL(string: "tel://\(selectedValue)")
+        let presentFunction = indexPath!.section == 0 ? makeAPhoneCall(number: selectedValue) : indexPath!.section == 1 ? sendEmail(recipient: selectedValue) : sendEmail(recipient: selectedValue)
         
-        guard let url = phoneCallURL else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        presentFunction
       //  let emailURL
       //  let mapURL
     }
@@ -818,5 +818,43 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         }
         
         dismiss(animated: true, completion: nil)
+    }
+}
+
+//MARK: Email, Phone Number -----------------------------------------------------------------
+
+extension ProfileVC: MFMailComposeViewControllerDelegate {
+    
+    private func sendEmail(recipient: String) {
+    
+       if MFMailComposeViewController.canSendMail() {
+            
+            let mailComposerVC = MFMailComposeViewController()
+            mailComposerVC.mailComposeDelegate = self
+        
+            mailComposerVC.setToRecipients([recipient])
+            mailComposerVC.setSubject("I want to hire Johnny Perdomo")
+            mailComposerVC.setMessageBody("Johnny Perdomo is one of the best iOS developers I've ever seen in my life, if I had my own tech company I would hire him on the spot!", isHTML: false)
+            self.present(mailComposerVC, animated: true, completion: nil)
+        } else {
+            showMailError()
+        }
+    }
+    
+    private func showMailError() {
+        let sendMailErrorAlert = UIAlertController(title: "Could not send email", message: "Your device could not send email", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        sendMailErrorAlert.addAction(dismiss)
+        self.present(sendMailErrorAlert, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    private func makeAPhoneCall(number: String) {
+        
+        guard let url = URL(string: "tel://\(number)") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
