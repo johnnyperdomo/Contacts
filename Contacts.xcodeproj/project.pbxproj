@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		52DA79C0E3A347B915DB8EEB /* Pods_Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA715FC105ED13A55ED854D /* Pods_Contacts.framework */; };
+		FE11886F21D6A2C2004B8CA6 /* PhoneNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11886E21D6A2C2004B8CA6 /* PhoneNumberTests.swift */; };
+		FE11887721D6A304004B8CA6 /* EmailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11887621D6A304004B8CA6 /* EmailTests.swift */; };
+		FE11887921D6ADE8004B8CA6 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11887821D6ADE8004B8CA6 /* StringExtension.swift */; };
+		FE11887B21D6AFBD004B8CA6 /* NameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11887A21D6AFBD004B8CA6 /* NameTests.swift */; };
 		FE17704521D3FB2C00F7F0BE /* DatePickerBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704421D3FB2C00F7F0BE /* DatePickerBulletinItem.swift */; };
 		FE17704721D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */; };
 		FE17704B21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */; };
@@ -38,10 +42,26 @@
 		FEF9882D21D1BD9A0095F28A /* Star.json in Resources */ = {isa = PBXBuildFile; fileRef = FEF9882C21D1BD9A0095F28A /* Star.json */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FE11887121D6A2C2004B8CA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FEA6A3D121C9A1F5006410C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FEA6A3D821C9A1F5006410C7;
+			remoteInfo = Contacts;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		31D2E602750EE12B5F71E140 /* Pods-Contacts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Contacts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Contacts/Pods-Contacts.release.xcconfig"; sourceTree = "<group>"; };
 		7DA715FC105ED13A55ED854D /* Pods_Contacts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Contacts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDCDA387B91B9C6963CD66B5 /* Pods-Contacts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Contacts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Contacts/Pods-Contacts.debug.xcconfig"; sourceTree = "<group>"; };
+		FE11886C21D6A2C2004B8CA6 /* ContactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContactsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE11886E21D6A2C2004B8CA6 /* PhoneNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberTests.swift; sourceTree = "<group>"; };
+		FE11887021D6A2C2004B8CA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE11887621D6A304004B8CA6 /* EmailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTests.swift; sourceTree = "<group>"; };
+		FE11887821D6ADE8004B8CA6 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		FE11887A21D6AFBD004B8CA6 /* NameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTests.swift; sourceTree = "<group>"; };
 		FE17704421D3FB2C00F7F0BE /* DatePickerBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextFieldBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextFieldBulletinItem.swift; sourceTree = "<group>"; };
@@ -75,6 +95,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FE11886921D6A2C2004B8CA6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FEA6A3D621C9A1F5006410C7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -103,6 +130,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FE11886D21D6A2C2004B8CA6 /* ContactsTests */ = {
+			isa = PBXGroup;
+			children = (
+				FE11887021D6A2C2004B8CA6 /* Info.plist */,
+				FE11886E21D6A2C2004B8CA6 /* PhoneNumberTests.swift */,
+				FE11887621D6A304004B8CA6 /* EmailTests.swift */,
+				FE11887A21D6AFBD004B8CA6 /* NameTests.swift */,
+			);
+			path = ContactsTests;
+			sourceTree = "<group>";
+		};
 		FE17704321D3FB1700F7F0BE /* Boards */ = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				FE925C1F21D25F200000D66E /* KeyboardExtension.swift */,
+				FE11887821D6ADE8004B8CA6 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -179,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				FEA6A3DB21C9A1F6006410C7 /* Contacts */,
+				FE11886D21D6A2C2004B8CA6 /* ContactsTests */,
 				FEA6A3DA21C9A1F6006410C7 /* Products */,
 				E32E1C5CA22556CA83854FCB /* Pods */,
 				3DDADE8AE968E552C7F8A76E /* Frameworks */,
@@ -189,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				FEA6A3D921C9A1F6006410C7 /* Contacts.app */,
+				FE11886C21D6A2C2004B8CA6 /* ContactsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,6 +257,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		FE11886B21D6A2C2004B8CA6 /* ContactsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FE11887521D6A2C2004B8CA6 /* Build configuration list for PBXNativeTarget "ContactsTests" */;
+			buildPhases = (
+				FE11886821D6A2C2004B8CA6 /* Sources */,
+				FE11886921D6A2C2004B8CA6 /* Frameworks */,
+				FE11886A21D6A2C2004B8CA6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FE11887221D6A2C2004B8CA6 /* PBXTargetDependency */,
+			);
+			name = ContactsTests;
+			productName = ContactsTests;
+			productReference = FE11886C21D6A2C2004B8CA6 /* ContactsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FEA6A3D821C9A1F5006410C7 /* Contacts */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FEA6A3EE21C9A1F9006410C7 /* Build configuration list for PBXNativeTarget "Contacts" */;
@@ -245,6 +304,10 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Johnny Perdomo";
 				TargetAttributes = {
+					FE11886B21D6A2C2004B8CA6 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = FEA6A3D821C9A1F5006410C7;
+					};
 					FEA6A3D821C9A1F5006410C7 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -264,11 +327,19 @@
 			projectRoot = "";
 			targets = (
 				FEA6A3D821C9A1F5006410C7 /* Contacts */,
+				FE11886B21D6A2C2004B8CA6 /* ContactsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FE11886A21D6A2C2004B8CA6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FEA6A3D721C9A1F5006410C7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -329,6 +400,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FE11886821D6A2C2004B8CA6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE11887721D6A304004B8CA6 /* EmailTests.swift in Sources */,
+				FE11886F21D6A2C2004B8CA6 /* PhoneNumberTests.swift in Sources */,
+				FE11887B21D6AFBD004B8CA6 /* NameTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FEA6A3D521C9A1F5006410C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -353,11 +434,20 @@
 				FE17704B21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift in Sources */,
 				FE57A5E121CEEA8B00F22572 /* CustomUIViewTopRounded.swift in Sources */,
 				FE57A5DB21CC4F6000F22572 /* ProfileTypeEnum.swift in Sources */,
+				FE11887921D6ADE8004B8CA6 /* StringExtension.swift in Sources */,
 				FEA6A3FA21CA5F3C006410C7 /* CreateProfileCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FE11887221D6A2C2004B8CA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FEA6A3D821C9A1F5006410C7 /* Contacts */;
+			targetProxy = FE11887121D6A2C2004B8CA6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FEA6A3E021C9A1F6006410C7 /* Main.storyboard */ = {
@@ -379,6 +469,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FE11887321D6A2C2004B8CA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JX3EAWJE5N;
+				INFOPLIST_FILE = ContactsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyperdomo.ContactsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Contacts.app/Contacts";
+			};
+			name = Debug;
+		};
+		FE11887421D6A2C2004B8CA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JX3EAWJE5N;
+				INFOPLIST_FILE = ContactsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyperdomo.ContactsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Contacts.app/Contacts";
+			};
+			name = Release;
+		};
 		FEA6A3EC21C9A1F9006410C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -538,6 +668,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FE11887521D6A2C2004B8CA6 /* Build configuration list for PBXNativeTarget "ContactsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE11887321D6A2C2004B8CA6 /* Debug */,
+				FE11887421D6A2C2004B8CA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FEA6A3D421C9A1F5006410C7 /* Build configuration list for PBXProject "Contacts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

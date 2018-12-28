@@ -498,7 +498,7 @@ class ProfileVC: UIViewController {
 
 extension ProfileVC {
     
-    private func isEmailValid(_ email: String) -> Bool {
+    func isEmailValid(_ email: String) -> Bool {
         
         do {
             if try NSRegularExpression(pattern: "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$", options: .caseInsensitive).firstMatch(in: email, options: [], range: NSRange(location: 0, length: email.count)) == nil {
@@ -510,7 +510,7 @@ extension ProfileVC {
         return true
     }
     
-    private func isPhoneNumberValid(_ phoneNumber: String) -> Bool {
+    func isPhoneNumberValid(_ phoneNumber: String) -> Bool {
         
         if phoneNumber.count < 10 {
             return false
@@ -605,12 +605,8 @@ extension ProfileVC {
             isFavoriteBool = true
         }
         
-        //Remove white spaces at the beginning and end of string
-        let trimmedFirstName = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
-        let trimmedLastName = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        person.firstName = trimmedFirstName
-        person.lastName = trimmedLastName
+        person.firstName = firstName.removeWhiteSpaces()
+        person.lastName = lastName.removeWhiteSpaces()
         person.dateOfBirth = dateOfBirth
         person.profileImage = profileImageData
         person.phoneNumbers = phoneNumbers as NSObject
@@ -646,12 +642,8 @@ extension ProfileVC {
                             
                             let profileImageData: Data = newProfileImage.pngData()!
                             
-                            //Remove white spaces at the beginning and end of string
-                            let trimmedFirstName = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
-                            let trimmedLastName = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
-                            
-                            result.setValue(trimmedFirstName, forKey: "firstName")
-                            result.setValue(trimmedLastName, forKey: "lastName")
+                            result.setValue(newFirstName.removeWhiteSpaces(), forKey: "firstName")
+                            result.setValue(newLastName.removeWhiteSpaces(), forKey: "lastName")
                             result.setValue(newDateOfBirth, forKey: "dateOfBirth")
                             result.setValue(profileImageData, forKey: "profileImage")
                             result.setValue(newPhonenumbers, forKey: "phoneNumbers")
