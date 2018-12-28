@@ -243,8 +243,6 @@ extension ContactsVC {
                     contactFavoritesDictionary[fullName] = isFavorite
                 }
                 createNameDictionary()
-            
-                print(contactNamesDictionary)
             } else {
                 print("error fetched core data")
             }

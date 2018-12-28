@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import MessageUI
+import MapKit
 import SwiftMessages
 import BLTNBoard
 
@@ -604,8 +605,12 @@ extension ProfileVC {
             isFavoriteBool = true
         }
         
-        person.firstName = firstName
-        person.lastName = lastName
+        //Remove white spaces at the beginning and end of string
+        let trimmedFirstName = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedLastName = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        person.firstName = trimmedFirstName
+        person.lastName = trimmedLastName
         person.dateOfBirth = dateOfBirth
         person.profileImage = profileImageData
         person.phoneNumbers = phoneNumbers as NSObject
@@ -789,13 +794,10 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         
         let selectedValue = userDataArray[(indexPath?.section)!]![(indexPath?.row)!]
         
-        let presentFunction = indexPath!.section == 0 ? makeAPhoneCall(number: selectedValue) : indexPath!.section == 1 ? sendEmail(recipient: selectedValue) : sendEmail(recipient: selectedValue)
+        let presentFunction = indexPath!.section == 0 ? makeAPhoneCall(number: selectedValue) : indexPath!.section == 1 ? sendEmail(recipient: selectedValue) : openAddressInMaps(address: selectedValue)
         
         presentFunction
-      //  let emailURL
-      //  let mapURL
     }
-    
 }
 
 //MARK: Image Picker -----------------------------------------------------------------
@@ -834,7 +836,7 @@ extension ProfileVC: MFMailComposeViewControllerDelegate {
         
             mailComposerVC.setToRecipients([recipient])
             mailComposerVC.setSubject("I want to hire Johnny Perdomo")
-            mailComposerVC.setMessageBody("Johnny Perdomo is one of the best iOS developers I've ever seen in my life, if I had my own tech company I would hire him on the spot!", isHTML: false)
+            mailComposerVC.setMessageBody("Johnny Perdomo is an awesome iOS developer, if I had my own tech company I would hire him on the spot. He would be the perfect candidate for the job because he’s a very skilled engineer, a talented designer, and always goes above and beyond when given tasks to do. He’s also a very productive programmer, getting more done in less time while developing safe, powerful code!", isHTML: false)
             self.present(mailComposerVC, animated: true, completion: nil)
         } else {
             showMailError()
@@ -856,5 +858,35 @@ extension ProfileVC: MFMailComposeViewControllerDelegate {
         
         guard let url = URL(string: "tel://\(number)") else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+//MARK: Maps -----------------------------------------------------------------
+
+extension ProfileVC {
+    
+    private func openAddressInMaps(address: String) {
+        
+        let geoCoder = CLGeocoder()
+        
+        //Convert Address into GPS Coordinates
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            
+            guard let placemarks = placemarks, let location = placemarks.first?.location else { return}
+            
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            
+            let regionDistance: CLLocationDistance = 10000
+            let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+            let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
+            let options = [MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center), MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)]
+            let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+            let mapItem = MKMapItem(placemark: placemark)
+            
+            //Open Coordinates in Maps
+            mapItem.name = "\(self.firstNameString)'s Address"
+            mapItem.openInMaps(launchOptions: options)
+        }
     }
 }

@@ -19,7 +19,7 @@
 		FE57A5DD21CEE83100F22572 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DC21CEE83000F22572 /* CustomButton.swift */; };
 		FE57A5DF21CEE8A000F22572 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */; };
 		FE57A5E121CEEA8B00F22572 /* CustomUIViewTopRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE57A5E021CEEA8B00F22572 /* CustomUIViewTopRounded.swift */; };
-		FE925C2021D25F200000D66E /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE925C1F21D25F200000D66E /* UIViewExtension.swift */; };
+		FE925C2021D25F200000D66E /* KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE925C1F21D25F200000D66E /* KeyboardExtension.swift */; };
 		FE9E0AED21D0057C00B39060 /* CustomUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E0AEC21D0057C00B39060 /* CustomUIView.swift */; };
 		FE9E0AEF21D00A4F00B39060 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E0AEE21D00A4F00B39060 /* GradientView.swift */; };
 		FE9E0AF121D0230B00B39060 /* AddContactLoader.json in Resources */ = {isa = PBXBuildFile; fileRef = FE9E0AF021D0230B00B39060 /* AddContactLoader.json */; };
@@ -53,7 +53,7 @@
 		FE57A5DC21CEE83000F22572 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		FE57A5DE21CEE8A000F22572 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		FE57A5E021CEEA8B00F22572 /* CustomUIViewTopRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIViewTopRounded.swift; sourceTree = "<group>"; };
-		FE925C1F21D25F200000D66E /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		FE925C1F21D25F200000D66E /* KeyboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
 		FE9E0AEC21D0057C00B39060 /* CustomUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIView.swift; sourceTree = "<group>"; };
 		FE9E0AEE21D00A4F00B39060 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		FE9E0AF021D0230B00B39060 /* AddContactLoader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AddContactLoader.json; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		FE9E0AF521D06B1F00B39060 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				FE925C1F21D25F200000D66E /* UIViewExtension.swift */,
+				FE925C1F21D25F200000D66E /* KeyboardExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -333,7 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE925C2021D25F200000D66E /* UIViewExtension.swift in Sources */,
+				FE925C2021D25F200000D66E /* KeyboardExtension.swift in Sources */,
 				FE17704D21D404B100F7F0BE /* EmailTextFieldBulletinItem.swift in Sources */,
 				FE17704521D3FB2C00F7F0BE /* DatePickerBulletinItem.swift in Sources */,
 				FEA6A3F621C9C4BC006410C7 /* ContactsCell.swift in Sources */,
