@@ -16,7 +16,7 @@ class PhoneTextFieldBulletinItem: BLTNPageItem {
     @objc public var textInputHandler: ((BLTNActionItem, String?) -> Void)? = nil
     
     override func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
-        textField = interfaceBuilder.makeTextField(placeholder: "305-111-1111", returnKey: .done, delegate: self)
+        textField = interfaceBuilder.makeTextField(placeholder: "311-555-2368", returnKey: .done, delegate: self)
         textField.keyboardType = UIKeyboardType.phonePad
         return [textField]
     }

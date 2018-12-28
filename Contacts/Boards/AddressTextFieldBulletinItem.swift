@@ -17,7 +17,7 @@ class AddressTextFieldBulletinItem: BLTNPageItem {
     @objc public var textInputHandler: ((BLTNActionItem, String?) -> Void)? = nil
     
     override func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
-        textField = interfaceBuilder.makeTextField(placeholder: "1234 SW 12th St Chipotle, FL", returnKey: .done, delegate: self)
+        textField = interfaceBuilder.makeTextField(placeholder: "1882 Girard St, San Francisco, CA 94134", returnKey: .done, delegate: self)
         return [textField]
     }
     

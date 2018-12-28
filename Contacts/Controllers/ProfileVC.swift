@@ -106,7 +106,7 @@ class ProfileVC: UIViewController {
                 return
             }
             
-            self.appendUserData(text: page.textField.text!, section: self.userDataButtonInfo.tag)
+            self.appendUserData(text: page.textField.text!.lowercased(), section: self.userDataButtonInfo.tag)
             self.dismissEmailBoard()
         }
         
@@ -646,8 +646,12 @@ extension ProfileVC {
                             
                             let profileImageData: Data = newProfileImage.pngData()!
                             
-                            result.setValue(newFirstName, forKey: "firstName")
-                            result.setValue(newLastName, forKey: "lastName")
+                            //Remove white spaces at the beginning and end of string
+                            let trimmedFirstName = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
+                            let trimmedLastName = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
+                            
+                            result.setValue(trimmedFirstName, forKey: "firstName")
+                            result.setValue(trimmedLastName, forKey: "lastName")
                             result.setValue(newDateOfBirth, forKey: "dateOfBirth")
                             result.setValue(profileImageData, forKey: "profileImage")
                             result.setValue(newPhonenumbers, forKey: "phoneNumbers")

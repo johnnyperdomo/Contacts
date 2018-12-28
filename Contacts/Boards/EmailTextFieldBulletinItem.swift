@@ -16,7 +16,7 @@ class EmailTextFieldBulletinItem: BLTNPageItem {
     @objc public var textInputHandler: ((BLTNActionItem, String?) -> Void)? = nil
     
     override func makeViewsUnderDescription(with interfaceBuilder: BLTNInterfaceBuilder) -> [UIView]? {
-        textField = interfaceBuilder.makeTextField(placeholder: "darth@vader.com", returnKey: .done, delegate: self)
+        textField = interfaceBuilder.makeTextField(placeholder: "eleven@strangerthings.com", returnKey: .done, delegate: self)
         textField.keyboardType = UIKeyboardType.emailAddress
         return [textField]
     }
