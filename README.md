@@ -1,4 +1,5 @@
 # Contacts
+ iOS Contacts App written in Swift 4 using C.R.U.D
 
 ## Preview
 ![Alt Text](https://media.giphy.com/media/YFFDiuxNrIhJtFk1xr/giphy.gif) ![Alt Text](https://media.giphy.com/media/vx3uxDAKjfNOOUYADy/giphy.gif) ![Alt Text](https://media.giphy.com/media/2SXRj97OfG731xraf0/giphy.gif) 
