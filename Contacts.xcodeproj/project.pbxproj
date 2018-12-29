@@ -12,6 +12,7 @@
 		FE11887721D6A304004B8CA6 /* EmailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11887621D6A304004B8CA6 /* EmailTests.swift */; };
 		FE11887921D6ADE8004B8CA6 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11887821D6ADE8004B8CA6 /* StringExtension.swift */; };
 		FE11887B21D6AFBD004B8CA6 /* NameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11887A21D6AFBD004B8CA6 /* NameTests.swift */; };
+		FE11887D21D6FF59004B8CA6 /* ContactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11887C21D6FF59004B8CA6 /* ContactTests.swift */; };
 		FE17704521D3FB2C00F7F0BE /* DatePickerBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704421D3FB2C00F7F0BE /* DatePickerBulletinItem.swift */; };
 		FE17704721D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */; };
 		FE17704B21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */; };
@@ -62,6 +63,7 @@
 		FE11887621D6A304004B8CA6 /* EmailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailTests.swift; sourceTree = "<group>"; };
 		FE11887821D6ADE8004B8CA6 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		FE11887A21D6AFBD004B8CA6 /* NameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameTests.swift; sourceTree = "<group>"; };
+		FE11887C21D6FF59004B8CA6 /* ContactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTests.swift; sourceTree = "<group>"; };
 		FE17704421D3FB2C00F7F0BE /* DatePickerBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704621D3FCFE00F7F0BE /* AddressTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextFieldBulletinItem.swift; sourceTree = "<group>"; };
 		FE17704A21D4036E00F7F0BE /* PhoneTextFieldBulletinItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTextFieldBulletinItem.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				FE11886E21D6A2C2004B8CA6 /* PhoneNumberTests.swift */,
 				FE11887621D6A304004B8CA6 /* EmailTests.swift */,
 				FE11887A21D6AFBD004B8CA6 /* NameTests.swift */,
+				FE11887C21D6FF59004B8CA6 /* ContactTests.swift */,
 			);
 			path = ContactsTests;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE11887D21D6FF59004B8CA6 /* ContactTests.swift in Sources */,
 				FE11887721D6A304004B8CA6 /* EmailTests.swift in Sources */,
 				FE11886F21D6A2C2004B8CA6 /* PhoneNumberTests.swift in Sources */,
 				FE11887B21D6AFBD004B8CA6 /* NameTests.swift in Sources */,

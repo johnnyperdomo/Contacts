@@ -17,16 +17,16 @@ class ContactsVC: UIViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     private let indexLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-    private var indexLettersInContactsArray = [String]()
+    var indexLettersInContactsArray = [String]()
     
-    private var namesArray = [String]()
+    var namesArray = [String]()
     private var contactImagesArray = [UIImage]()
     
     private var personArray: [Person] = []
     private var filteredPersonArray: [Person] = []
     private var onlyFavoriteContactsArray: [Person] = []
     
-    private var contactNamesDictionary = [String: [String]]() //i.e. "A" : ["Anakin Skywalker" , "Astro Boy"], "C" : ["Charlie Brown"], "J" : ["Johnny Perdomo", "Jason Vorhees", "Julia Child"]
+    var contactNamesDictionary = [String: [String]]() //i.e. "A" : ["Anakin Skywalker" , "Astro Boy"], "C" : ["Charlie Brown"], "J" : ["Johnny Perdomo", "Jason Vorhees", "Julia Child"]
     private var contactImagesDictionary = [String: UIImage]() //i.e. "Johnny Perdomo" : <<Picture 27, User Picture >>
     private var contactFavoritesDictionary = [String: Bool]() //i.e "Ross Geller" : True, "Joey Tribiani" : False
     
@@ -126,7 +126,7 @@ class ContactsVC: UIViewController {
         contactsTableView.isHidden = false
     }
     
-    private func createNameDictionary() {
+    func createNameDictionary() {
         
         contactNamesDictionary.removeAll()
         for name in namesArray {
